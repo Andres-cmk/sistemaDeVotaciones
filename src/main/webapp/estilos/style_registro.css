@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poetsen One", sans-serif;
+}
+
+body{
+    background-color: black;
+    background-image: url(../imagenes/Ellipse6.svg), url(../imagenes/Ellipse6.svg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 70vw top -40vh, left 70vw bottom -160vh;
+}
+
+.contenedor{
+    width: 400px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    height: 600px;
+    background-color: black;
+}
+
+
+.principal{
+
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    gap: 1px;
+}
+
+h2{
+    text-align: center;
+    font-size: 2rem;+
+    margin-bottom: 1vh;
+    margin-top: 4vh;
+    color: white;
+}
+
+.input-contenedor label{
+    color: white;
+    position: relative;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 5px;
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+
+.input-contenedor{
+    position: relative;
+    margin: 30px 0;
+    width: 300px;
+    border-bottom: 2px solid white;
+    font-size: 1rem;
+}
+
+.input-contenedor input{
+    width: 100%;
+    height: 30px;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    padding: -9px 0 2px;
+    color: white;
+    outline: none;
+}
+
+button[type="submit"]{
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 23px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover{
+    text-decoration-line: underline;
+}
+
+.register:hover{
+    text-decoration-line: underline;
+}
+

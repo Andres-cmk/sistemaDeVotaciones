@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+
+:root{
+    --color-blanco: white;
+    --color-negro: black;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poetsen One", sans-serif;
+}
+
+body{
+    background-color: var(--color-negro);
+    background-image: url(../imagenes/Ellipse6.svg), url(../imagenes/Ellipse6.svg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 70vw top -40vh, left 70vw bottom -160vh;
+}
+
+.principal{
+
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    gap: 15px;
+}
+
+.img{
+    width: 50%;
+    height: 500px;
+    border-radius: 300px;
+    margin-left: 300px;
+    margin-top: 20%;
+}
+
+img{
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 300px;
+}
+
+.form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+
+}
+.contenedor{
+    width: 400px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    height: 500px;
+    background-color: var(--color-negro);
+}
+
+
+.contenedor h2{
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 5vh;
+    color: var(--color-blanco);
+
+}
+.input-contenedor label{
+    color: var(--color-blanco);
+    position: relative;
+    transform: translateY(-50%);
+    top: 50%;
+    left: 5px;
+    font-size: 1rem;
+    pointer-events: none;
+}
+
+
+.input-contenedor{
+    position: relative;
+    margin: 30px 0;
+    width: 300px;
+    border-bottom: 2px solid var(--color-blanco);
+    font-size: 1rem;
+}
+
+
+.input-contenedor i{
+    color: var(--color-blanco);
+    position: absolute;
+    top: 19px;
+    right: 8px;
+
+}
+
+.registrar p,a {
+    color: var(--color-blanco);
+}
+
+.input-contenedor input{
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    padding: -10px 0 5px;
+    color: var(--color-blanco);
+    outline: none;
+}
+
+button[type="submit"]{
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover{
+    text-decoration-line: underline;
+}
+
+.register:hover{
+    text-decoration-line: underline;
+}
+
+.registrar{
+    text-align: center;
+}
+
+.registrar p a{
+    text-decoration: none;
+
+}
+
+@media (max-width: 550px) {
+    
+    .img{
+        display: none;
+    }
+
+    .principal {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form {
+        width: 100%;
+    }
+}
