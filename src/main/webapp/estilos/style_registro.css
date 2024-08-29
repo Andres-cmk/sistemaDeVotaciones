@@ -12,6 +12,7 @@ body{
     background-image: url(../imagenes/Ellipse6.svg), url(../imagenes/Ellipse6.svg);
     background-repeat: no-repeat, no-repeat;
     background-position: right 70vw top -40vh, left 70vw bottom -160vh;
+    height: 100vh;
 }
 
 .contenedor{

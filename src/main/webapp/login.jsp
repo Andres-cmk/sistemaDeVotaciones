@@ -6,13 +6,15 @@
     <link rel="stylesheet" href="estilos/style_login.css">
     <link rel="shortcut icon" href="imagenes/hive.svg" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div class="principal">
     <div class="form">
         <div class="contenedor">
             <div class="formulario">
-                <form class="formu" autocomplete="off" action="SvVerificar" method="POST">
+                <form class="login" autocomplete="off" action="SvVerificar" method="POST">
                     <h2>Iniciar Sesión</h2>
                     <div class="input-contenedor">
                         <label for="documento">Numero de documento</label>
@@ -29,11 +31,9 @@
                         <input type="password" name="password" id="contraseña" required/>
                         <i class="fa-solid fa-lock"></i>
                     </div>
-
-                    <div>
                         <button type="submit">Acceder</button>
-                    </div>
                 </form>
+
                 <div class="registrar">
                     <p>
                         ¿Aun no estas registrado? <a href="registro.jsp" class="register" >Registrate</a>
@@ -47,11 +47,48 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     Swal.fire({
         title: "Bienvenido"
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.login').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'SvVerificar',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'error') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "Usuario invalido",
+                            timer: 3000
+                        })
+                    } else if (response.status === 'success') {
+                        // Redirigir a la página principal
+                        window.location.href = 'Pagina_Principal.jsp';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Manejo de errores en la solicitud AJAX
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error en la solicitud',
+                        text: "Hubo un problema al procesar tu solicitud",
+                        timer: 3000
+                    });
+                }
+            });
+        });
+    });
+
 </script>
 </body>
 </html>

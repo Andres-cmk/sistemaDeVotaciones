@@ -10,7 +10,7 @@ import java.util.List;
 @WebServlet(name = "SvUsuarios", value = "/SvUsuarios")
 public class SvUsuarios extends HttpServlet {
 
-    ControladoraJPA control = new ControladoraJPA();
+    private final ControladoraJPA control = new ControladoraJPA();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {}
 
@@ -38,7 +38,8 @@ public class SvUsuarios extends HttpServlet {
                     }
                 }
             }
-            control.crearUsuario(new Usuario(nombre,apellido, email, password, NumeroDocumento, rolUsuario));
+            Usuario usuario = new Usuario(nombre,apellido, email, password, NumeroDocumento, rolUsuario);
+            control.crearUsuario(usuario);
             response.getWriter().write("{\"status\":\"success\"}");
 
 

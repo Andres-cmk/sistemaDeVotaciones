@@ -29,7 +29,5 @@ public class SendToken {
         }catch (Exception e){
             System.out.println(e);
         }
-
-
     }
 }

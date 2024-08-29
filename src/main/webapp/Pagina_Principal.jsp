@@ -3,6 +3,7 @@
 <%@ page import="Logica.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,7 +17,16 @@
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="imagenes/server-solid.svg" type="image/x-icon">
 </head>
+
+<!--Validacion-->
+<%
+    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+    if(usuario == null){
+        response.sendRedirect("loginError.jsp");
+    }
+%>
 <body>
+
 <!-- Barra de Navegación -->
 <header>
     <div class="logo">
@@ -100,7 +110,7 @@
                 List<Usuario> usuarioList = controladoraJPA.getUsuarios();
             %>
             <%for (Usuario usu: usuarioList){
-                if(!usu.getUsu_rol().toLowerCase().equalsIgnoreCase("administrador")){
+                if(!usu.getUsu_rol().equalsIgnoreCase("administrador")){
             %>
             <tr>
                 <td><%= usu.getUsu_NumeroDocumento()%></td>

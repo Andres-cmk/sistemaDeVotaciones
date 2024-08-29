@@ -71,7 +71,7 @@
                     showConfirmButton: false,
                     timer: 3000
                   }).then((result) => {
-                    window.location.href = 'index.jsp';
+                    window.location.href = 'login.jsp';
                   });
                 }else if (response.status === 'valueRepet') {
                   Swal.fire({
@@ -81,7 +81,7 @@
                     showConfirmButton: false,
                     timer: 3000
                   }).then((result) =>{
-                    window.location.href = 'index.jsp';
+                    window.location.href = 'login.jsp';
                   })
                 }
                 else if (response.status === 'error') {

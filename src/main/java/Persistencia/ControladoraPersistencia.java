@@ -1,6 +1,7 @@
 package Persistencia;
 
 import Logica.Usuario;
+import jakarta.persistence.EntityManager;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,4 +26,5 @@ public class ControladoraPersistencia implements Serializable {
     public List<Usuario> getUsuarios(){
         return usuariojpa.findUsuarioEntities();
     }
+
 }
