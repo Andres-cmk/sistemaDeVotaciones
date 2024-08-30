@@ -8,6 +8,7 @@
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="./javaScript/login.js"></script>
 </head>
 <body>
 <div class="principal">
@@ -54,41 +55,5 @@
     });
 </script>
 
-<script>
-    $(document).ready(function() {
-        $('.login').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: 'SvVerificar',
-                data: $(this).serialize(),
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'error') {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: "Usuario invalido",
-                            timer: 3000
-                        })
-                    } else if (response.status === 'success') {
-                        // Redirigir a la página principal
-                        window.location.href = 'Pagina_Principal.jsp';
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // Manejo de errores en la solicitud AJAX
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error en la solicitud',
-                        text: "Hubo un problema al procesar tu solicitud",
-                        timer: 3000
-                    });
-                }
-            });
-        });
-    });
-
-</script>
 </body>
 </html>
