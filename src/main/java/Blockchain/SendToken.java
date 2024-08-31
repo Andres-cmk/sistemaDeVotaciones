@@ -19,7 +19,7 @@ public class SendToken {
 
             Web3j web3j = Web3j.build(new HttpService(GANACHE_URL));
             Credentials credentials = Credentials.create(SENDER_PRIVATE_KEY);
-            BigDecimal amountInEther = BigDecimal.ONE;
+            BigDecimal amountInEther = BigDecimal.valueOf(0.01);
             TransactionReceipt transactionReceipt = Transfer.sendFunds(
                     web3j, credentials, destinationAddress, amountInEther, Convert.Unit.ETHER
             ).send();
@@ -27,7 +27,7 @@ public class SendToken {
             System.out.println("Transaction complete: " + transactionReceipt.getTransactionHash());
 
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e + e.getMessage());
         }
     }
 }
