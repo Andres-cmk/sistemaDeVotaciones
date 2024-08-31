@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="./estilos/errorLogin.css">
 </head>
 <body>
-<h1>404 Error Page #1</h1>
+<h1>401 Error Page #1</h1>
 <p class="zoom-area"><b>Error en la autenticacion</b> Se requiere validacion de usuario. </p>
 <section class="error-container">
     <span><span>4</span></span>
     <span>0</span>
-    <span><span>4</span></span>
+    <span><span>1</span></span>
 </section>
 <div class="link-container">
     <a href="login.jsp" class="more-link" >Regresar</a>
