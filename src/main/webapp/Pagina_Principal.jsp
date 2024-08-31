@@ -41,6 +41,7 @@
             <li><a data-target="#candidatos">Candidatos</a></li>
             <li><a data-target="#votantes">Votantes</a></li>
             <li><a data-target="#reportes">Reportes</a></li>
+            <li><a href="SvCerrarSesion?param=salir">Salir de Session</a></li>
         </ul>
     </nav>
 </header>
