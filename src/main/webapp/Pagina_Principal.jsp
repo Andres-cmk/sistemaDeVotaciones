@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interfaz de Elecciones</title>
-    <link rel="stylesheet" href="estilos/resultados.css">
-    <link rel="stylesheet" href="estilos/elecciones.css">
-    <link rel="stylesheet" href="estilos/usuarios.css">
-    <link rel="stylesheet" href="estilos/footer.css">
+    <link rel="stylesheet" href="styles/resultados.css">
+    <link rel="stylesheet" href="styles/elecciones.css">
+    <link rel="stylesheet" href="styles/usuarios.css">
+    <link rel="stylesheet" href="styles/footer.css">
     <script src="./javaScript/script.js" defer></script>
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="imagenes/server-solid.svg" type="image/x-icon">
@@ -41,7 +41,7 @@
             <li><a data-target="#candidatos">Candidatos</a></li>
             <li><a data-target="#votantes">Votantes</a></li>
             <li><a data-target="#reportes">Reportes</a></li>
-            <li><a href="SvCerrarSesion?param=salir">Salir de Session</a></li>
+            <li><a href="SvCerrarSesion?param=salir">Salir</a></li>
         </ul>
     </nav>
 </header>
@@ -75,7 +75,7 @@
         <!-- Sección de Resultados -->
         <section class="resultados">
             <h2>Resultados</h2>
-            <div id="resultados">
+            <div id="">
                 <!-- Resultados dinámicos -->
             </div>
         </section>
@@ -92,7 +92,16 @@
             <label for="records">Registros</label>
             <input type="text" id="search" placeholder="Buscar">
         </div>
+
         <table>
+
+            <%
+                ControladoraJPA control = new ControladoraJPA();
+                List<Usuario> listaUSuarios = control.getUsuarios();
+                if(usuario.getUsu_rol().equals("administrador")){
+
+            %>
+
             <thead>
             <tr>
                 <th>Documento de identidad</th>
@@ -100,32 +109,49 @@
                 <th>Apellido</th>
                 <th>Correo</th>
                 <th>Rol</th>
-
-
             </tr>
             </thead>
-            <tbody>
-
             <%
-                ControladoraJPA controladoraJPA = new ControladoraJPA();
-                List<Usuario> usuarioList = controladoraJPA.getUsuarios();
+                for (Usuario usu: listaUSuarios){
             %>
-            <%for (Usuario usu: usuarioList){
-                if(!usu.getUsu_rol().equalsIgnoreCase("administrador")){
-            %>
+
+
+                <tbody>
+                <tr>
+                    <td><%= usu.getUsu_NumeroDocumento()%></td>
+                    <td><%= usu.getUsu_nombre()%></td>
+                    <td><%= usu.getUsu_apellido()%></td>
+                    <td><%= usu.getUsu_correo()%></td>
+                    <td><%= usu.getUsu_rol()%></td>
+                </tr>
+                </tbody>
+
+            <%}%>
+            <%} else {%>
+            <thead>
             <tr>
-                <td><%= usu.getUsu_NumeroDocumento()%></td>
+
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Rol</th>
+            </tr>
+            </thead>
+                <%
+                    for (Usuario usu: listaUSuarios){
+                %>
+            <tbody>
+            <tr>
                 <td><%= usu.getUsu_nombre()%></td>
                 <td><%= usu.getUsu_apellido()%></td>
                 <td><%= usu.getUsu_correo()%></td>
                 <td><%= usu.getUsu_rol()%></td>
             </tr>
-            <%}%>
-            <%}%>
             </tbody>
+
+            <%}%>
+            <%}%>
         </table>
-
-
     </div>
 
     <div data-content id="eleccion">

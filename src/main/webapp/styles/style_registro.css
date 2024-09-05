@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poetsen One", sans-serif;
+}
+
+body {
+    background-color: black;
+    background-image: url(../imagenes/Ellipse6.svg), url(../imagenes/Ellipse6.svg);
+    background-repeat: no-repeat, no-repeat;
+    background-position: right 70vw top -40vh, left 70vw bottom -30vh;
+    height: 100vh;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+    gap: 30px; /* Espacio entre las columnas */
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-items: center; /* Alinea horizontalmente los elementos */
+    padding: 20px;
+}
+
+.contenedor {
+    width: 600px; /* Reducir un poco el ancho */
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    background-color: black;
+    padding: 20px;
+}
+
+.principal {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;
+    grid-column: span 2; /* Ocupa las dos columnas */
+}
+.input-contenedor {
+    display: flex;
+    flex-direction: column;
+    width: 240px; /* Ancho ajustado */
+    font-size: 1rem;
+}
+
+.input-contenedor label {
+    color: white;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.input-contenedor input {
+    height: 30px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    font-size: 1rem;
+    color: white;
+    outline: none;
+}
+
+button[type="submit"] {
+    width: 50%; /* Tamaño del botón ajustado */
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-size: 1rem;
+    grid-column: span 2; /* Ocupa ambas columnas */
+    justify-self: center; /* Centrando el botón */
+    margin-top: 20px; /* Espacio superior */
+}
+
+button[type="submit"]:hover {
+    text-decoration: underline;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+
+/* Estilos responsivos para móviles */
+@media (max-width: 480px) {
+    .contenedor {
+        width: 90%; /* Usamos un ancho de casi toda la pantalla */
+    }
+
+    form {
+        grid-template-columns: 1fr; /* Pasamos a una sola columna */
+        gap: 15px; /* Espaciado adicional entre los campos */
+    }
+
+    h2 {
+        grid-column: span 1; /* Ya no es necesario que ocupe dos columnas */
+    }
+
+    .input-contenedor {
+        width: 100%; /* Ajustar el ancho de los inputs */
+    }
+
+    button[type="submit"] {
+        width: 80%; /* Ajustar tamaño del botón para pantallas pequeñas */
+        grid-column: span 1; /* Asegurar que el botón esté en una sola columna */
+        justify-self: center;
+    }
+}

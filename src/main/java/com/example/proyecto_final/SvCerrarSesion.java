@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "SvCerrarSesion", value = "/SvCerrarSesion")
+
 public class SvCerrarSesion extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
@@ -18,8 +19,6 @@ public class SvCerrarSesion extends HttpServlet {
             session.invalidate();
             request.setAttribute("mensaje","Session finalizada");
             response.sendRedirect("login.jsp");
-
         }
-
     }
 }

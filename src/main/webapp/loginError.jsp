@@ -5,7 +5,7 @@
     <title>Error Login</title>
     <link rel="shortcut icon" href="./imagenes/xmark-solid.svg" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./estilos/errorLogin.css">
+    <link rel="stylesheet" href="styles/errorLogin.css">
 </head>
 <body>
 <h1>401 Error Page #1</h1>

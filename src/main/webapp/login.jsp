@@ -3,7 +3,7 @@
 <html lang="es">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="estilos/style_login.css">
+    <link rel="stylesheet" href="styles/style_login.css">
     <link rel="shortcut icon" href="imagenes/hive.svg" type="image/x-icon">
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

@@ -4,11 +4,13 @@
 <html lang="es">
 <head>
     <title>Registro</title>
-    <link rel="stylesheet" href="estilos/style_registro.css">
+
     <link rel="shortcut icon" href="imagenes/database-solid.svg" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./javaScript/registro.js"></script>
+    <link rel="stylesheet" href="./styles/style_registro.css" type="text/css">
+
 </head>
 <body>
 
@@ -49,9 +51,9 @@
           <input type="text" name="rolEstudiante" id="rol"/>
         </div>
 
-        <div>
+
           <button type="submit">Registrar</button>
-        </div>
+
       </form>
     </div>
   </div>
