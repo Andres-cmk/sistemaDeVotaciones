@@ -15,7 +15,7 @@ import jakarta.persistence.criteria.Root;
 * una red se combierta en una cadena de bytes.
 * */
 
-public class EleccionController implements Serializable{
+public class EleccionController{
 
     private final EntityManagerFactory emf;
 

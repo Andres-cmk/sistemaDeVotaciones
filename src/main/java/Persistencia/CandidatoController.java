@@ -11,7 +11,7 @@ import jakarta.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
 
-public class CandidatoController implements Serializable{
+public class CandidatoController{
 
     private final EntityManagerFactory emf;
 

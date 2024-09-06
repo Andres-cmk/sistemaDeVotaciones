@@ -4,7 +4,7 @@ import Persistencia.ControladoraPersistencia;
 import java.io.Serializable;
 import java.util.List;
 
-public class ControladoraJPA implements Serializable {
+public class ControladoraJPA{
 
     ControladoraPersistencia persistencia = new ControladoraPersistencia();
 
@@ -18,6 +18,14 @@ public class ControladoraJPA implements Serializable {
 
     public List<Usuario> getUsuarios(){
         return persistencia.getUsuarios();
+    }
+
+    public void crearEleeccion(Eleccion eleccion){
+        persistencia.crerEleccion(eleccion);
+    }
+
+    public List<Eleccion> getELeccion(){
+        return persistencia.getEleccion();
     }
 
 }

@@ -1,9 +1,10 @@
 <%@ page import="Logica.ControladoraJPA" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Logica.Usuario" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
+<%@ page import="Logica.Eleccion" %>
+<%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" %>
 
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -20,9 +21,10 @@
 
 <!--Validacion-->
 <%
-    Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+     Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
     if(usuario == null){
         response.sendRedirect("loginError.jsp");
+        return;
     }
 %>
 <body>
@@ -47,6 +49,7 @@
 </header>
 
 <!-- Contenedor Principal -->
+<!-------------------------------------------------------------------------------------------------------------------------------------------->
 <div class="container">
     <div data-content id="Principal">
         <div class="promo"><h3>Bienvenido a nuestro sistema de votaciones</h3></div>
@@ -56,6 +59,8 @@
         </video>
         --->
     </div>
+
+ <!------------------------------------------------------------------------------------------------------------------------------------------->
 
     <div data-content id="resultados">
         <h1>Resultados</h1>
@@ -72,6 +77,7 @@
             </form>
         </section>
 
+<!----------------------------------------------------------------------------------------------------------------------------------------->
         <!-- Sección de Resultados -->
         <section class="resultados">
             <h2>Resultados</h2>
@@ -81,25 +87,20 @@
         </section>
     </div>
 
+    <!----------------------------------------------------------------------------------------------------------------------------------->
+
     <div data-content id="usuarios">
         <h1>Usuarios</h1>
         <h2>Lista de usuarios</h2>
-        <div class="table-options">
-            <label for="records">Mostrar</label>
-            <select id="records">
-                <option value="10">10</option>
-            </select>
-            <label for="records">Registros</label>
-            <input type="text" id="search" placeholder="Buscar">
-        </div>
+
 
         <table>
 
             <%
-                ControladoraJPA control = new ControladoraJPA();
-                List<Usuario> listaUSuarios = control.getUsuarios();
-                if(usuario.getUsu_rol().equals("administrador")){
-
+                ControladoraJPA controladoraJPA = new ControladoraJPA();
+                List<Usuario> listaUSuarios = controladoraJPA.getUsuarios();
+                 usuario = (Usuario) request.getSession().getAttribute("usuario");
+                if (usuario.getUsu_rol().equals("administrador")){
             %>
 
             <thead>
@@ -114,8 +115,6 @@
             <%
                 for (Usuario usu: listaUSuarios){
             %>
-
-
                 <tbody>
                 <tr>
                     <td><%= usu.getUsu_NumeroDocumento()%></td>
@@ -139,6 +138,7 @@
             </thead>
                 <%
                     for (Usuario usu: listaUSuarios){
+                        if(!usu.getUsu_rol().equals("administrador")){
                 %>
             <tbody>
             <tr>
@@ -151,38 +151,138 @@
 
             <%}%>
             <%}%>
+            <%}%>
         </table>
     </div>
+
+    <!----------------------------------------------------------------------------------------------------------------------------->
 
     <div data-content id="eleccion">
         <h1>Elecciones</h1>
         <h2>Lista de elecciones</h2>
         <div class="table-options">
-            <label for="records">Mostrar</label>
-            <select id="records">
-                <option value="10">10</option>
-            </select>
-            <label for="records">Registros</label>
-            <input type="text" id="search" placeholder="Buscar">
+
+            <script>
+            <%if (usuario.getUsu_rol().equals("administrador")){%>
+                document.getElementById("openModalBtn").style.display = "";
+            <%} else{%>
+                document.getElementById("openModalBtn").style.display = "none";
+            <%}%>
+            </script>
+
         </div>
+
+        <!--Tabla de Elecciones-->
+
         <table>
+
+            <%
+                List<Eleccion> eleccionList = controladoraJPA.getELeccion();
+                if(usuario.getUsu_rol().equals("administrador")){
+            %>
+
             <thead>
             <tr>
-                <th>Descripcion</th>
-                <th>Cargo</th>
-                <th>Fecha registrado</th>
-                <th>Creado</th>
-                <th>Acciones</th>
+                <th>Estado de Eleccion</th>
+                <th>Fecha-Inicio</th>
+                <th>Fecha-Final</th>
+                <th>Nombre-Eleccion</th>
             </tr>
             </thead>
+
+            <%
+                for (Eleccion ele: eleccionList){
+            %>
+
+                <tbody>
+                    <tr>
+                        <td><%=ele.getEle_estado()%></td>
+                        <td><%=ele.getEle_fechaInicio()%></td>
+                        <td><%=ele.getEle_fechaFinal()%></td>
+                        <td><%=ele.getEle_nombre()%></td>
+                        <td>
+                            <div class="Pagination" style="display: flex; gap: 10px">
+                                <form id="formEditEleccion" method="POST" action="">
+                                    <button type="submit" style="background-color: #14213d">Editar  <i class="fa-solid fa-pencil"></i></button>
+                                </form>
+
+                                <form id="formRemoveEleccion" method="POST">
+                                    <button type="submit" style="background-color: #b7b3b3">Eliminar  <i class="fa-solid fa-trash"></i></button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            <%}%>
+            <%} else {%>
+
+            <thead>
+            <tr>
+                <th>Estado de Eleccion</th>
+                <th>Fecha-Inicio</th>
+                <th>Fecha-Final</th>
+                <th>Nombre-Eleccion</th>
+                <th>Incripccion</th>
+            </tr>
+            </thead>
+
+            <%
+                for (Eleccion ele: eleccionList){
+            %>
+
+            <tbody>
+            <tr>
+                <td><%=ele.getEle_estado()%></td>
+                <td><%=ele.getEle_fechaInicio()%></td>
+                <td><%=ele.getEle_fechaFinal()%></td>
+                <td><%=ele.getEle_nombre()%></td>
+                <td>
+                    <div class="Pagination" style="display: flex; gap: 10px">
+                        <form id="inscribirPerson">
+                            <button type="reset">Incribirse  <i class="fa-solid fa-check"></i> </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <%}%>
+            <%}%>
         </table>
-        <div class="Pagination">
-            <button class="previous">Anterior</button>
-            <span>1</span>
-            <button class="next">Siguiente</button>
-        </div>
     </div>
 
+
+    <!-------------------------------------------------------------------------------------------------------------------------->
+
+    <!--Modal (formulario para agregar eleccion)-->
+
+    <!-- El fondo oscuro (overlay) -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- El contenido de la ventana modal con formulario -->
+    <div class="modal" id="myModal" style="display: none">
+        <span class="close-btn" id="closeModalBtn">&times;</span>
+        <h2>Formulario de Registro</h2>
+        <form action="SvEleccion" method="POST" id="formuEleccion" autocomplete="off" >
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" name="estadoEleccion" required>
+
+            <label for="fechaInicial">Fecha Inicial:</label>
+            <input type="date" id="fechaInicial" name="fechainicial" required>
+
+            <label for="fechaFinal">Fecha Final:</label>
+            <input type="date" id="fechaFinal" name="fechafinal" required>
+
+            <label for="nombreEleccion">Nombre Eleccion</label>
+            <input type="text" id="nombreEleccion" name="nombreEleccion" required>
+
+            <button type="submit">Registrar</button>
+            
+        </form>
+    </div>
+
+    <!--Falta por implementar-->
+    <!------------------------------------------------------------------------------------------------------------------------------->
     <div data-content id="candidatos">
         <h1>Candidatos</h1>
     </div>
@@ -194,7 +294,10 @@
     <div data-content id="reportes">
         <h1>Reportes</h1>
     </div>
+
+    <!---------------------------------------------------------------------------------------------------------------------------------------->
 </div>
+<script src="javaScript/modal.js"></script>
 </body>
 
 <footer id="footer">
@@ -213,4 +316,3 @@
     </div>
 </footer>
 </html>
-

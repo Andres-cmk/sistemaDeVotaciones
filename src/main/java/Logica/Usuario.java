@@ -50,6 +50,8 @@ public class Usuario{
         this.usu_vot_id = usu_vot_id;
     }
 
-    public Usuario() {}
+    public Usuario() {
+        super();
+    }
 
 }

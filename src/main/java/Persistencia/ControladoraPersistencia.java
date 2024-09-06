@@ -1,16 +1,18 @@
 package Persistencia;
 
+import Logica.Eleccion;
 import Logica.Usuario;
 import jakarta.persistence.EntityManager;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class ControladoraPersistencia implements Serializable {
+public class ControladoraPersistencia {
 
     // instanciamos los controladores.
 
     UsuarioController usuariojpa = new UsuarioController();
+    EleccionController eleccionController = new EleccionController();
 
     // aqui van los metodos para cada accion
     // Usuario
@@ -27,4 +29,12 @@ public class ControladoraPersistencia implements Serializable {
         return usuariojpa.findUsuarioEntities();
     }
 
+    public void crerEleccion(Eleccion eleccion) {
+        eleccionController.createEleccion(eleccion);
+
+    }
+
+    public List<Eleccion> getEleccion(){
+        return eleccionController.findEleccionEntities();
+    }
 }

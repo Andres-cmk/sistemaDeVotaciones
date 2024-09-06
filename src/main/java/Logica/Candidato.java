@@ -33,6 +33,14 @@ public class Candidato{
     @OneToMany(mappedBy = "candidato", fetch = FetchType.LAZY)
     List<Voto> voto;
 
-    public Candidato(){}
+    public Candidato(Date can_fechaDeRegistro, String can_nombre, String can_rol){
+        this.can_fechaDeRegistro = can_fechaDeRegistro;
+        this.can_nombre = can_nombre;
+        this.can_rol = can_rol;
+    }
+
+    public Candidato(){
+        super();
+    }
 
 }

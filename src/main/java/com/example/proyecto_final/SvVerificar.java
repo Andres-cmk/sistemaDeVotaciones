@@ -13,7 +13,9 @@ public class SvVerificar extends HttpServlet {
 
     private final ControladoraJPA control = new ControladoraJPA();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

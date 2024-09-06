@@ -44,5 +44,8 @@ public class Voto{
     @Temporal(TemporalType.DATE)
     Date vot_fechavDeVoto;
 
-    public Voto(){}
+
+    public Voto(){
+        super();
+    }
 }

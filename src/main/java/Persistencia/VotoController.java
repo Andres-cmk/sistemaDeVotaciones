@@ -10,7 +10,7 @@ import jakarta.persistence.criteria.Root;
 import java.io.Serializable;
 import java.util.List;
 
-public class VotoController implements Serializable{
+public class VotoController{
 
     private final EntityManagerFactory emf;
 

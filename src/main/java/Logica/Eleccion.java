@@ -35,5 +35,13 @@ public class Eleccion {
    @OneToMany(mappedBy = "eleccion", fetch = FetchType.LAZY)
    private List<Voto> vot;
 
-   public Eleccion(){}
+   public Eleccion(String ele_nombre, Date ele_fechaInicio, Date ele_fechaFinal, String ele_estado){
+       this.ele_nombre = ele_nombre;
+       this.ele_fechaInicio = ele_fechaInicio;
+       this.ele_fechaFinal = ele_fechaFinal;
+       this.ele_estado = ele_estado;
+   }
+   public Eleccion(){
+       super();
+   }
 }
