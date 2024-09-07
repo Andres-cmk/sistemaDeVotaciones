@@ -1,10 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"  language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="styles/style_login.css">
     <link rel="shortcut icon" href="imagenes/hive.svg" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="./styles/style_login.css">
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

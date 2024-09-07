@@ -1,6 +1,5 @@
 package Persistencia;
 
-import java.io.Serializable;
 import java.util.List;
 import Logica.Eleccion;
 import jakarta.persistence.EntityManager;
@@ -32,29 +31,72 @@ public class EleccionController{
     }
 
     public void createEleccion(Eleccion eleccion){
-        try (EntityManager em = getEntityManager()) {
+        EntityManager em = null;
+        try  {
+            em = getEntityManager();
             em.getTransaction().begin();
             em.persist(eleccion);
             em.getTransaction().commit();
+        }catch (Exception e){
+            if(em != null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!= null) em.close();
         }
     }
 
-    public void deleteEleccion(int idEleccion) throws Exception{
-        EntityManager em;
-        em = getEntityManager();
-        em.getTransaction().begin();
-        Eleccion eleccion = em.find(Eleccion.class, idEleccion);
-        if(eleccion != null){
-            em.remove(eleccion);
+    public void deleteEleccion(int idEleccion){
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Eleccion eleccion = em.find(Eleccion.class, idEleccion);
+            if(eleccion != null){
+                em.remove(eleccion);
+
+            }
+            em.getTransaction().commit();
+        }catch (Exception e){
+            if(em!= null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!=null){
+                em.close();
+            }
         }
-        em.getTransaction().commit();
+
+    }
+
+    public Eleccion findEleccion(int id){
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            return em.find(Eleccion.class, id);
+        }catch (Exception e){
+            System.out.println(e);
+        }finally {
+            if(em!=null) em.close();
+        }
+        return null;
     }
 
     public void editEleccion(Eleccion eleccion){
-        try (EntityManager em = getEntityManager()){
+        EntityManager em = null;
+        try{
+            em = getEntityManager();
             em.getTransaction().begin();
             em.merge(eleccion);
             em.getTransaction().commit();
+        }catch (Exception e){
+            if(em!= null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!=null){
+                em.close();
+            }
         }
     }
 

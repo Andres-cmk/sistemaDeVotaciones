@@ -2,9 +2,6 @@ package Persistencia;
 
 import Logica.Eleccion;
 import Logica.Usuario;
-import jakarta.persistence.EntityManager;
-
-import java.io.Serializable;
 import java.util.List;
 
 public class ControladoraPersistencia {
@@ -13,6 +10,8 @@ public class ControladoraPersistencia {
 
     UsuarioController usuariojpa = new UsuarioController();
     EleccionController eleccionController = new EleccionController();
+    CandidatoController candidatoController = new CandidatoController();
+    VotoController votoController = new VotoController();
 
     // aqui van los metodos para cada accion
     // Usuario
@@ -29,12 +28,17 @@ public class ControladoraPersistencia {
         return usuariojpa.findUsuarioEntities();
     }
 
+
+
+    // Eleccion
     public void crerEleccion(Eleccion eleccion) {
         eleccionController.createEleccion(eleccion);
-
     }
-
     public List<Eleccion> getEleccion(){
         return eleccionController.findEleccionEntities();
+    }
+
+    public void eliminarEleccion(int idEleccion) throws Exception {
+        eleccionController.deleteEleccion(idEleccion);
     }
 }

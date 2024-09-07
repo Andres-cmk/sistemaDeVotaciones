@@ -1,14 +1,12 @@
 package Persistencia;
 
 import Logica.Candidato;
-import Logica.Usuario;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import java.io.Serializable;
 import java.util.List;
 
 public class CandidatoController{
@@ -29,33 +27,59 @@ public class CandidatoController{
     }
 
     public void createCandidato(Candidato candidato){
-        try (EntityManager em = getEntityManager()) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
             em.getTransaction().begin();
             em.persist(candidato);
             em.getTransaction().commit();
+        }catch (Exception e){
+            if(em != null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em !=null){
+                em.close();
+            }
         }
     }
 
     public void deleteCandidato(int idCandidato){
-        EntityManager em;
+        EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Usuario usuario = em.find(Usuario.class, idCandidato);
-            if (usuario != null) {
-                em.remove(usuario);
+            Candidato candidato = em.find(Candidato.class, idCandidato);
+            if (candidato != null) {
+                em.remove(candidato);
             }
             em.getTransaction().commit();
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            if(em!= null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!=null){
+                em.close();
+            }
         }
     }
 
     public void editCandidato(Candidato candidato){
-        try (EntityManager em = getEntityManager()) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
             em.getTransaction().begin();
             em.merge(candidato);
             em.getTransaction().commit();
+        }catch (Exception e){
+            if(em!= null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!=null){
+                em.close();
+            }
         }
     }
 

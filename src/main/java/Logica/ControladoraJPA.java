@@ -1,7 +1,6 @@
 package Logica;
 
 import Persistencia.ControladoraPersistencia;
-import java.io.Serializable;
 import java.util.List;
 
 public class ControladoraJPA{
@@ -28,4 +27,7 @@ public class ControladoraJPA{
         return persistencia.getEleccion();
     }
 
+    public void removeEleccion(int idEleccion) throws Exception {
+        persistencia.eliminarEleccion(idEleccion);
+    }
 }

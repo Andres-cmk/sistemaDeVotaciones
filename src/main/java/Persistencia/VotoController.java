@@ -7,7 +7,6 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
-import java.io.Serializable;
 import java.util.List;
 
 public class VotoController{

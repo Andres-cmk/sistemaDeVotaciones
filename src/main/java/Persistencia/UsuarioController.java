@@ -28,15 +28,36 @@ public class UsuarioController {
     }
 
     public void create(Usuario usuario) {
-        try (EntityManager em = getEntityManager()) {
+        EntityManager em = null;
+        try  {
+            em = getEntityManager();
             em.getTransaction().begin();
             em.persist(usuario);
             em.getTransaction().commit();
+        }catch (Exception e){
+            if (em != null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!=null) em.close();
         }
     }
 
+    public Usuario findUsuario(int id){
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            return em.find(Usuario.class, id);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }finally {
+            if(em!=null) em.close();
+        }
+        return null;
+    }
+
     public void delete(int id) {
-        EntityManager em;
+        EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -46,15 +67,27 @@ public class UsuarioController {
             }
             em.getTransaction().commit();
         }catch (Exception e){
-            System.out.println(e.getMessage());
+            if (em != null && em.getTransaction().isActive()) {
+                em.getTransaction().rollback();  // En caso de error, se hace rollback de la transacción.
+            }
+        }finally {
+            if(em!=null) em.close();
         }
     }
 
     public void edit(Usuario usuario) {
-        try (EntityManager em = getEntityManager()) {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
             em.getTransaction().begin();
             em.merge(usuario);
             em.getTransaction().commit();
+        }catch (Exception e){
+            if(em!= null && em.getTransaction().isActive()){
+                em.getTransaction().rollback();
+            }
+        }finally {
+            if(em!=null) em.close();
         }
     }
 

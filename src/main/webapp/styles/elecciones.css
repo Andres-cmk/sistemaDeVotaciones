@@ -127,7 +127,7 @@ th {
     transform: translate(-50%, -50%);
     width: 400px;
     background-color: white;
-    padding: 20px;
+    padding: 15px;
     z-index: 2; /* Aparece sobre el overlay */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -148,16 +148,43 @@ th {
 
 }
 
+#myModalEleccion{
+    display: none; /* Por defecto no es visible */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: white;
+    padding: 15px;
+    z-index: 2; /* Aparece sobre el overlay */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+#formuEditarEleccion{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+    gap: 10px; /* Espacio entre las columnas */
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-items: center; /* Alinea horizontalmente los elementos */
+    padding: 20px;
+}
+
+.btnEdit{
+    grid-column: span 2; /* Ocupa ambas columnas */
+}
+
 .modal label, input, button {
     margin: 10px 0;
 }
 
-#estado, #fechaInicial, #fechaFinal, #nombreEleccion {
+#estado, #fechaInicial, #fechaFinal, #nombreEleccion, #estadoEditar, #fechaInicialEditar, #fechaFinalEditar, #nombreEleccionEditar, #idEleccion {
     padding: 10px;
     font-size: 16px;
 }
 
-#openModalBtn {
+#openModalBtn, #editar {
     padding: 10px;
     font-size: 13px;
     background-color: #14213d;
@@ -167,5 +194,6 @@ th {
 }
 
 #openModalBtn:hover {
-    background-color:#14213d;
+    background-color: #14213d;
 }
+

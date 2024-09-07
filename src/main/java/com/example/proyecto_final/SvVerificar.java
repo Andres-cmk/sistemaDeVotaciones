@@ -1,6 +1,7 @@
 package com.example.proyecto_final;
 
 import Logica.ControladoraJPA;
+import Logica.Eleccion;
 import Logica.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
@@ -22,8 +23,14 @@ public class SvVerificar extends HttpServlet {
         int numeroDocumento = Integer.parseInt(request.getParameter("documet"));
         String email = request.getParameter("correo");
         String password = request.getParameter("password");
+        // traemos la sesion de la sesion del usuario.
         HttpSession session = request.getSession(true);
+        // traemos la session para la lista de usuarios.
+        HttpSession misession1 = request.getSession(true);
+        // traemos la session para la lista de eleccion.
+        HttpSession miSession2 = request.getSession(true);
 
+        List<Eleccion> eleccionList = control.getELeccion();
         List<Usuario> listaUsuarios = control.getUsuarios();
         boolean usuarioEncontrado = false;
 
@@ -34,6 +41,8 @@ public class SvVerificar extends HttpServlet {
                         usuario.getUsu_password().equals(password)) {
                     // Usuario encontrado
                     session.setAttribute("usuario", usuario);
+                    misession1.setAttribute("ListaUsuarios", listaUsuarios);
+                    miSession2.setAttribute("listaEleccion", eleccionList);
                     usuarioEncontrado = true;
                     break;
                 }

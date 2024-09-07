@@ -1,4 +1,3 @@
-<%@ page import="Logica.ControladoraJPA" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Logica.Usuario" %>
 <%@ page import="Logica.Eleccion" %>
@@ -71,7 +70,13 @@
                 <label for="elecciones">Elecciones:</label>
                 <select id="elecciones">
                     <option value="">-- Seleccione --</option>
-                    <!-- Opciones dinámicas -->
+                    <%
+                        List<Eleccion> listaEleccion = (List<Eleccion>) request.getSession().getAttribute("listaEleccion");
+                        for (Eleccion ele: listaEleccion){
+                    %>
+                        <option value="<%=ele.getEle_nombre()%>"><%=ele.getEle_nombre()%></option>
+                    <%}%>
+
                 </select>
                 <button type="submit">Buscar Resultados</button>
             </form>
@@ -97,8 +102,7 @@
         <table>
 
             <%
-                ControladoraJPA controladoraJPA = new ControladoraJPA();
-                List<Usuario> listaUSuarios = controladoraJPA.getUsuarios();
+                List<Usuario> listaUSuarios = (List<Usuario>) request.getSession().getAttribute("ListaUsuarios");
                  usuario = (Usuario) request.getSession().getAttribute("usuario");
                 if (usuario.getUsu_rol().equals("administrador")){
             %>
@@ -158,17 +162,21 @@
     <!----------------------------------------------------------------------------------------------------------------------------->
 
     <div data-content id="eleccion">
+
         <h1>Elecciones</h1>
         <h2>Lista de elecciones</h2>
         <div class="table-options">
 
+            <button  id="editar" style="background-color: #14213d; margin-right: 10px" onclick="getMotalEditar()">Editar  <i class="fa-solid fa-pencil"></i></button>
+            <button id="openModalBtn" onclick="getMotal()">Agregar Eleccion   <i class="fa-solid fa-plus"></i></button>
+
             <script>
-            <%if (usuario.getUsu_rol().equals("administrador")){%>
-                document.getElementById("openModalBtn").style.display = "";
-            <%} else{%>
-                document.getElementById("openModalBtn").style.display = "none";
+            <%if (!usuario.getUsu_rol().equals("administrador")){%>
+                 document.getElementById("openModalBtn").style.display = "none";
+                 document.getElementById("editar").style.display = "none";
             <%}%>
             </script>
+
 
         </div>
 
@@ -177,12 +185,13 @@
         <table>
 
             <%
-                List<Eleccion> eleccionList = controladoraJPA.getELeccion();
+                List<Eleccion> eleccionList = (List<Eleccion>) request.getSession().getAttribute("listaEleccion");
                 if(usuario.getUsu_rol().equals("administrador")){
             %>
 
             <thead>
             <tr>
+                <th>id de Eleccion</th>
                 <th>Estado de Eleccion</th>
                 <th>Fecha-Inicio</th>
                 <th>Fecha-Final</th>
@@ -196,18 +205,16 @@
 
                 <tbody>
                     <tr>
+                        <td><%=ele.getEle_id()%></td>
                         <td><%=ele.getEle_estado()%></td>
                         <td><%=ele.getEle_fechaInicio()%></td>
                         <td><%=ele.getEle_fechaFinal()%></td>
                         <td><%=ele.getEle_nombre()%></td>
                         <td>
                             <div class="Pagination" style="display: flex; gap: 10px">
-                                <form id="formEditEleccion" method="POST" action="">
-                                    <button type="submit" style="background-color: #14213d">Editar  <i class="fa-solid fa-pencil"></i></button>
-                                </form>
-
-                                <form id="formRemoveEleccion" method="POST">
+                                <form action="SvEliminarUsuario" id="formRemoveEleccion" method="POST">
                                     <button type="submit" style="background-color: #b7b3b3">Eliminar  <i class="fa-solid fa-trash"></i></button>
+                                    <label for="id"><input type="hidden" id="id" name="eliminarEleccion" value="<%=ele.getEle_id()%>"></label>
                                 </form>
                             </div>
                         </td>
@@ -249,6 +256,40 @@
             <%}%>
             <%}%>
         </table>
+
+        <!--Ventana Modal para editar Usuario-->
+        <div class="modal-overlay" id="modalEleccion"></div>
+
+
+        <div class="modalEdit" id="myModalEleccion" style="display: none">
+            <span class="close-btn" id="Clase-btn">&times;</span>
+            <h2>Editar Eleccion</h2>
+
+            <form action="" id="formuEditarEleccion" autocomplete="off">
+
+
+                <label for="idEleccion">Id de la Eleccion:</label>
+                <input type="text" id="idEleccion" name="idEle" required>
+
+
+                <label for="estadoEditar">Estado:</label>
+                <input type="text" id="estadoEditar" class="estado" name="estadoEleccion" required>
+
+                <label for="fechaInicialEditar">Fecha Inicial:</label>
+                <input type="date" id="fechaInicialEditar" class="fechaInicial" name="fechainicial" required>
+
+                <label for="fechaFinalEditar">Fecha Final:</label>
+                <input type="date" id="fechaFinalEditar"  class="fechaFinal" name="fechafinal" required>
+
+                <label for="nombreEleccionEditar">Nombre Eleccion</label>
+                <input type="text" id="nombreEleccionEditar" class="nombreEleccion" name="nombreEleccion" required>
+
+                <button type="submit" class="btnEdit">Edit</button>
+                
+
+            </form>
+        </div>
+
     </div>
 
 
@@ -264,6 +305,7 @@
         <span class="close-btn" id="closeModalBtn">&times;</span>
         <h2>Formulario de Registro</h2>
         <form action="SvEleccion" method="POST" id="formuEleccion" autocomplete="off" >
+
             <label for="estado">Estado:</label>
             <input type="text" id="estado" name="estadoEleccion" required>
 
@@ -298,6 +340,7 @@
     <!---------------------------------------------------------------------------------------------------------------------------------------->
 </div>
 <script src="javaScript/modal.js"></script>
+<script src="javaScript/ediatModal.js"></script>
 </body>
 
 <footer id="footer">

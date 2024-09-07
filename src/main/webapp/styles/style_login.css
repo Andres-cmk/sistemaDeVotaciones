@@ -16,7 +16,7 @@ body{
     background-color: var(--color-negro);
     background-image: url(../imagenes/Ellipse6.svg), url(../imagenes/Ellipse6.svg);
     background-repeat: no-repeat, no-repeat;
-    background-position: right 70vw top -40vh, left 70vw bottom -160vh;
+    background-position: right 70vw top -40vh, left 70vw bottom -150vh;
 }
 
 .principal{
