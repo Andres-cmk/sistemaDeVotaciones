@@ -32,7 +32,7 @@ public class Eleccion {
     private String ele_estado;
 
 
-   @OneToMany(mappedBy = "eleccion", fetch = FetchType.LAZY)
+   @OneToMany(mappedBy = "eleccion", fetch = FetchType.EAGER)
    private List<Voto> vot;
 
    public Eleccion(String ele_nombre, Date ele_fechaInicio, Date ele_fechaFinal, String ele_estado){

@@ -41,4 +41,12 @@ public class ControladoraPersistencia {
     public void eliminarEleccion(int idEleccion) throws Exception {
         eleccionController.deleteEleccion(idEleccion);
     }
+
+    public Eleccion findEleccion(int id) {
+        return eleccionController.findEleccion(id);
+    }
+
+    public void editEleccion(Eleccion ele) {
+        eleccionController.editEleccion(ele);
+    }
 }

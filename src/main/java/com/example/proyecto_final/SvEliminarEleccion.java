@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "SvEliminarUsuario", value = "/SvEliminarUsuario")
-public class SvEliminarUsuario extends HttpServlet {
+@WebServlet(name = "SvEliminarEleccion", value = "/SvEliminarEleccion")
+public class SvEliminarEleccion extends HttpServlet {
     ControladoraJPA control = new ControladoraJPA();
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

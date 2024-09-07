@@ -30,4 +30,10 @@ public class ControladoraJPA{
     public void removeEleccion(int idEleccion) throws Exception {
         persistencia.eliminarEleccion(idEleccion);
     }
+
+    public Eleccion getEleccion(int id){
+        return persistencia.findEleccion(id);
+    }
+
+    public void editEleccion(Eleccion ele){persistencia.editEleccion(ele);}
 }

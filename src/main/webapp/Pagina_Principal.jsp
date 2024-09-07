@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="styles/footer.css">
     <script src="./javaScript/script.js" defer></script>
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="shortcut icon" href="imagenes/server-solid.svg" type="image/x-icon">
 </head>
 
@@ -212,7 +213,7 @@
                         <td><%=ele.getEle_nombre()%></td>
                         <td>
                             <div class="Pagination" style="display: flex; gap: 10px">
-                                <form action="SvEliminarUsuario" id="formRemoveEleccion" method="POST">
+                                <form action="SvEliminarEleccion" id="formRemoveEleccion" method="POST">
                                     <button type="submit" style="background-color: #b7b3b3">Eliminar  <i class="fa-solid fa-trash"></i></button>
                                     <label for="id"><input type="hidden" id="id" name="eliminarEleccion" value="<%=ele.getEle_id()%>"></label>
                                 </form>
@@ -265,7 +266,7 @@
             <span class="close-btn" id="Clase-btn">&times;</span>
             <h2>Editar Eleccion</h2>
 
-            <form action="" id="formuEditarEleccion" autocomplete="off">
+            <form action="SvEditarEleccion" id="formuEditarEleccion" method="POST" autocomplete="off">
 
 
                 <label for="idEleccion">Id de la Eleccion:</label>
@@ -284,10 +285,9 @@
                 <label for="nombreEleccionEditar">Nombre Eleccion</label>
                 <input type="text" id="nombreEleccionEditar" class="nombreEleccion" name="nombreEleccion" required>
 
-                <button type="submit" class="btnEdit">Edit</button>
-                
-
+                <button type="submit" class="btnEdit">Guardar</button>
             </form>
+                <button class="btnEdit" style="display: grid" type="button" onclick="getData()">Traer Datos</button>
         </div>
 
     </div>
@@ -341,6 +341,7 @@
 </div>
 <script src="javaScript/modal.js"></script>
 <script src="javaScript/ediatModal.js"></script>
+<script src="javaScript/cargarDatos.js"></script>
 </body>
 
 <footer id="footer">
