@@ -45,6 +45,13 @@ public class Voto{
     Date vot_fechavDeVoto;
 
 
+    public Voto(Usuario usuario, Eleccion eleccion,Candidato candidato, Date vot_fechavDeVoto){
+        this.usuario = usuario;
+        this.eleccion = eleccion;
+        this.candidato = candidato;
+        this.vot_fechavDeVoto = vot_fechavDeVoto;
+    }
+
     public Voto(){
         super();
     }

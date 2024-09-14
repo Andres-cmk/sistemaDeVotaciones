@@ -1,3 +1,5 @@
+import {Chart} from "chart.js";
+
 const targets = document.querySelectorAll('[data-target]')
 const content = document.querySelectorAll('[data-content]')
 
@@ -11,3 +13,4 @@ targets.forEach(target => {
         t.classList.add('active')
     })
 })
+

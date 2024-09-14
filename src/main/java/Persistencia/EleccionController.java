@@ -1,5 +1,6 @@
 package Persistencia;
 
+
 import java.util.List;
 import Logica.Eleccion;
 import jakarta.persistence.EntityManager;
@@ -10,9 +11,9 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 /*
-*la interfaz Serializable sirve para cuando un objeto sea mandado por
-* una red se combierta en una cadena de bytes.
-* */
+ *la interfaz Serializable sirve para cuando un objeto sea mandado por
+ * una red se combierta en una cadena de bytes.
+ * */
 
 public class EleccionController{
 
@@ -31,72 +32,40 @@ public class EleccionController{
     }
 
     public void createEleccion(Eleccion eleccion){
-        EntityManager em = null;
-        try  {
-            em = getEntityManager();
+        try (EntityManager em = getEntityManager()) {
             em.getTransaction().begin();
             em.persist(eleccion);
             em.getTransaction().commit();
-        }catch (Exception e){
-            if(em != null && em.getTransaction().isActive()){
-                em.getTransaction().rollback();
-            }
-        }finally {
-            if(em!= null) em.close();
         }
-    }
-
-    public void deleteEleccion(int idEleccion){
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
-            em.getTransaction().begin();
-            Eleccion eleccion = em.find(Eleccion.class, idEleccion);
-            if(eleccion != null){
-                em.remove(eleccion);
-
-            }
-            em.getTransaction().commit();
-        }catch (Exception e){
-            if(em!= null && em.getTransaction().isActive()){
-                em.getTransaction().rollback();
-            }
-        }finally {
-            if(em!=null){
-                em.close();
-            }
-        }
-
     }
 
     public Eleccion findEleccion(int id){
-        EntityManager em = null;
+        EntityManager em;
         try {
             em = getEntityManager();
             return em.find(Eleccion.class, id);
         }catch (Exception e){
-            System.out.println(e);
-        }finally {
-            if(em!=null) em.close();
+            System.out.println(e.getMessage());
         }
         return null;
     }
 
+    public void deleteEleccion(int idEleccion) throws Exception{
+        EntityManager em;
+        em = getEntityManager();
+        em.getTransaction().begin();
+        Eleccion eleccion = em.find(Eleccion.class, idEleccion);
+        if(eleccion != null){
+            em.remove(eleccion);
+        }
+        em.getTransaction().commit();
+    }
+
     public void editEleccion(Eleccion eleccion){
-        EntityManager em = null;
-        try{
-            em = getEntityManager();
+        try (EntityManager em = getEntityManager()){
             em.getTransaction().begin();
             em.merge(eleccion);
             em.getTransaction().commit();
-        }catch (Exception e){
-            if(em!= null && em.getTransaction().isActive()){
-                em.getTransaction().rollback();
-            }
-        }finally {
-            if(em!=null){
-                em.close();
-            }
         }
     }
 

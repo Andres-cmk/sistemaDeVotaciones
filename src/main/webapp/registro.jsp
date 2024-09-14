@@ -112,7 +112,7 @@
           Swal.fire({
             icon: 'error',
             title: 'Error!',
-            text: 'Hubo un problema al procesar su solicitud. Por favor, inténtelo de nuevo.',
+            text: error,
             showConfirmButton: false,
             timer: 3000
           });

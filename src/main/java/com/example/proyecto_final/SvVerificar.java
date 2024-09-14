@@ -3,7 +3,6 @@ package com.example.proyecto_final;
 import Logica.ControladoraJPA;
 import Logica.Eleccion;
 import Logica.Usuario;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
@@ -14,11 +13,8 @@ public class SvVerificar extends HttpServlet {
 
     private final ControladoraJPA control = new ControladoraJPA();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
 
         int numeroDocumento = Integer.parseInt(request.getParameter("documet"));
         String email = request.getParameter("correo");

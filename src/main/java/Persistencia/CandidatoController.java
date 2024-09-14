@@ -4,6 +4,7 @@ import Logica.Candidato;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -13,6 +14,16 @@ public class CandidatoController{
 
     private final EntityManagerFactory emf;
 
+
+    public int obtenerCantidadVotos(long id){
+        EntityManager em = getEntityManager();
+        String sql = "SELECT COUNT(usuario_usu_id) FROM voto WHERE candidato_vot_id = ?";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, id);
+
+        Number result = (Number) query.getSingleResult();
+        return result.intValue();
+    }
 
     public CandidatoController() {
         this.emf = Persistence.createEntityManagerFactory("default");
@@ -27,25 +38,15 @@ public class CandidatoController{
     }
 
     public void createCandidato(Candidato candidato){
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
+        try (EntityManager em = getEntityManager()) {
             em.getTransaction().begin();
             em.persist(candidato);
             em.getTransaction().commit();
-        }catch (Exception e){
-            if(em != null && em.getTransaction().isActive()){
-                em.getTransaction().rollback();
-            }
-        }finally {
-            if(em !=null){
-                em.close();
-            }
         }
     }
 
     public void deleteCandidato(int idCandidato){
-        EntityManager em = null;
+        EntityManager em;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
@@ -55,31 +56,15 @@ public class CandidatoController{
             }
             em.getTransaction().commit();
         }catch (Exception e){
-            if(em!= null && em.getTransaction().isActive()){
-                em.getTransaction().rollback();
-            }
-        }finally {
-            if(em!=null){
-                em.close();
-            }
+            System.out.println(e.getMessage());
         }
     }
 
     public void editCandidato(Candidato candidato){
-        EntityManager em = null;
-        try {
-            em = getEntityManager();
+        try (EntityManager em = getEntityManager()) {
             em.getTransaction().begin();
             em.merge(candidato);
             em.getTransaction().commit();
-        }catch (Exception e){
-            if(em!= null && em.getTransaction().isActive()){
-                em.getTransaction().rollback();
-            }
-        }finally {
-            if(em!=null){
-                em.close();
-            }
         }
     }
 

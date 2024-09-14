@@ -1,6 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Logica.Usuario" %>
 <%@ page import="Logica.Eleccion" %>
+<%@ page import="Logica.ControladoraJPA" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -13,7 +15,8 @@
     <link rel="stylesheet" href="styles/elecciones.css">
     <link rel="stylesheet" href="styles/usuarios.css">
     <link rel="stylesheet" href="styles/footer.css">
-    <script src="./javaScript/script.js" defer></script>
+    <link rel="stylesheet" href="styles/candidatos.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="shortcut icon" href="imagenes/server-solid.svg" type="image/x-icon">
@@ -26,6 +29,7 @@
         response.sendRedirect("loginError.jsp");
         return;
     }
+    ControladoraJPA control = new ControladoraJPA();
 %>
 <body>
 
@@ -53,11 +57,6 @@
 <div class="container">
     <div data-content id="Principal">
         <div class="promo"><h3>Bienvenido a nuestro sistema de votaciones</h3></div>
-        <!--
-        <video muted autoplay loop controls>
-            <source src="./videos/Fndo.mp4" type="video/mp4">
-        </video>
-        --->
     </div>
 
  <!------------------------------------------------------------------------------------------------------------------------------------------->
@@ -72,7 +71,7 @@
                 <select id="elecciones">
                     <option value="">-- Seleccione --</option>
                     <%
-                        List<Eleccion> listaEleccion = (List<Eleccion>) request.getSession().getAttribute("listaEleccion");
+                        List<Eleccion> listaEleccion = control.getELeccion();
                         for (Eleccion ele: listaEleccion){
                     %>
                         <option value="<%=ele.getEle_nombre()%>"><%=ele.getEle_nombre()%></option>
@@ -83,15 +82,16 @@
             </form>
         </section>
 
-<!----------------------------------------------------------------------------------------------------------------------------------------->
         <!-- Sección de Resultados -->
-        <section class="resultados">
+        <div class="resultados">
             <h2>Resultados</h2>
-            <div id="">
                 <!-- Resultados dinámicos -->
-            </div>
-        </section>
+            <canvas id="pieChart"></canvas>
+        </div>
     </div>
+
+    <!---Script para el diagrama-->
+    <script src="javaScript/diagrama.js"></script>
 
     <!----------------------------------------------------------------------------------------------------------------------------------->
 
@@ -171,12 +171,6 @@
             <button  id="editar" style="background-color: #14213d; margin-right: 10px" onclick="getMotalEditar()">Editar  <i class="fa-solid fa-pencil"></i></button>
             <button id="openModalBtn" onclick="getMotal()">Agregar Eleccion   <i class="fa-solid fa-plus"></i></button>
 
-            <script>
-            <%if (!usuario.getUsu_rol().equals("administrador")){%>
-                 document.getElementById("openModalBtn").style.display = "none";
-                 document.getElementById("editar").style.display = "none";
-            <%}%>
-            </script>
 
 
         </div>
@@ -186,7 +180,7 @@
         <table>
 
             <%
-                List<Eleccion> eleccionList = (List<Eleccion>) request.getSession().getAttribute("listaEleccion");
+                List<Eleccion> eleccionList = control.getELeccion();
                 if(usuario.getUsu_rol().equals("administrador")){
             %>
 
@@ -289,7 +283,6 @@
             </form>
                 <button class="btnEdit" style="display: grid" type="button" onclick="getData()">Traer Datos</button>
         </div>
-
     </div>
 
 
@@ -323,10 +316,36 @@
         </form>
     </div>
 
-    <!--Falta por implementar-->
+
     <!------------------------------------------------------------------------------------------------------------------------------->
     <div data-content id="candidatos">
         <h1>Candidatos</h1>
+        <div class="table-options">
+            <button id="openModalCandidato" onclick="viewModal()">Agregar Candidato   <i class="fa-solid fa-plus"></i></button>
+        </div>
+    </div>
+
+
+    <div class="modal-overlay" id="modalCandidato"></div>
+
+
+    <div class="modalEdit" id="myModalCandidato" style="display: none">
+        <span class="close-btn" id="btnCloseCandidato">&times;</span>
+        <h2>Agrega un Candidato</h2>
+
+        <form action="SvCandidatos" id="formuAgregarCan" method="POST" autocomplete="off">
+
+            <label for="fechaRegistro">Fecha de Registro:</label>
+            <input type="date" id="fechaRegistro" name="fechaCandidato" required>
+
+            <label for="nombreCandidato">Nombre del Candidato:</label>
+            <input type="text" id="nombreCandidato" name="nombreCandidato" required>
+
+            <label for="rolCandidato">Rol del Candidato:</label>
+            <input type="text" id="rolCandidato" readonly name="rolCandidato">
+
+            <button type="submit" class="btnAgregar">Agregar</button>
+        </form>
     </div>
 
     <div data-content id="votantes">
@@ -342,6 +361,15 @@
 <script src="javaScript/modal.js"></script>
 <script src="javaScript/ediatModal.js"></script>
 <script src="javaScript/cargarDatos.js"></script>
+<script src="javaScript/script.js"></script>
+<script src="javaScript/agregarCanModal.js"></script>
+<script>
+    <%if (!usuario.getUsu_rol().equals("administrador")){%>
+    document.getElementById("openModalBtn").style.display = "none";
+    document.getElementById("editar").style.display = "none";
+    document.getElementById("openModalCandidato").style.display = "none";
+    <%}%>
+</script>
 </body>
 
 <footer id="footer">

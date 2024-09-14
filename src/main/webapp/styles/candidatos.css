@@ -1,0 +1,53 @@
+.close-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 30px;
+    color: #000;
+}
+#myModalCandidato{
+    display: none; /* Por defecto no es visible */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: white;
+    padding: 15px;
+    z-index: 2; /* Aparece sobre el overlay */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+#formuAgregarCan{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+    gap: 10px; /* Espacio entre las columnas */
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-items: center; /* Alinea horizontalmente los elementos */
+    padding: 20px;
+}
+.modal label, input, button {
+    margin: 10px 0;
+}
+
+.btnAgregar{
+    grid-column: span 2; /* Ocupa ambas columnas */
+}
+#openModalCandidato {
+    padding: 10px;
+    font-size: 13px;
+    background-color: #14213d;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#fechaRegistro, #nombreCandidato, #rolCandidato {
+    padding: 10px;
+    font-size: 16px;
+}
+
+#openModalCandidato:hover {
+    background-color: #14213d;
+}
+
