@@ -24,7 +24,7 @@ $(document).ready(function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error en la solicitud',
-                    text: "Hubo un problema al procesar tu solicitud",
+                    text: error,
                     timer: 3000
                 });
             }

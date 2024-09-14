@@ -1,6 +1,5 @@
 package DS;
 
-
 import java.util.Objects;
 
 public class HashMap<K,V> implements Map<K,V> {
@@ -17,7 +16,7 @@ public class HashMap<K,V> implements Map<K,V> {
     }
 
     public HashMap(){
-        this(10);
+        this(1000);
     }
 
     @Override
@@ -92,17 +91,6 @@ public class HashMap<K,V> implements Map<K,V> {
         }
     }
 
-    public static void main(String[] args) {
-        HashMap<String, String> dicc = new HashMap<>();
-        dicc.put("Andres", "19");
-        dicc.put("juan","23");
-        dicc.put("maria","15");
-        dicc.put("Andres", "67");
-        dicc.put("lobo","10");
-        dicc.put("perro","11");
-        dicc.printHashMap();
-        System.out.println(dicc.get("juan"));
-    }
 
 }
 

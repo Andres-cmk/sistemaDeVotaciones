@@ -1,5 +1,6 @@
 package Persistencia;
 
+import Logica.Candidato;
 import Logica.Eleccion;
 import Logica.Usuario;
 import java.util.List;
@@ -48,5 +49,9 @@ public class ControladoraPersistencia {
 
     public void editEleccion(Eleccion ele) {
         eleccionController.editEleccion(ele);
+    }
+
+    public void createCandit(Candidato candidato) {
+        candidatoController.createCandidato(candidato);
     }
 }

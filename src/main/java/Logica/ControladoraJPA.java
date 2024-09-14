@@ -36,4 +36,8 @@ public class ControladoraJPA{
     }
 
     public void editEleccion(Eleccion ele){persistencia.editEleccion(ele);}
+
+    public void crearCandidato(Candidato candidato) {
+        persistencia.createCandit(candidato);
+    }
 }

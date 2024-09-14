@@ -2,7 +2,6 @@
 <%@ page import="Logica.Usuario" %>
 <%@ page import="Logica.Eleccion" %>
 <%@ page import="Logica.ControladoraJPA" %>
-<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -342,7 +341,11 @@
             <input type="text" id="nombreCandidato" name="nombreCandidato" required>
 
             <label for="rolCandidato">Rol del Candidato:</label>
-            <input type="text" id="rolCandidato" readonly name="rolCandidato">
+            <input type="text" id="rolCandidato"  name="rolCandidato" required>
+
+            <label for="id-Eleccion">El candidato es de la Eleccion:</label>
+            <input type="text" id="id-Eleccion" name="id_eleccion" required>
+
 
             <button type="submit" class="btnAgregar">Agregar</button>
         </form>

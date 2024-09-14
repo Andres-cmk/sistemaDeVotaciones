@@ -23,10 +23,7 @@ public class SvVerificar extends HttpServlet {
         HttpSession session = request.getSession(true);
         // traemos la session para la lista de usuarios.
         HttpSession misession1 = request.getSession(true);
-        // traemos la session para la lista de eleccion.
-        HttpSession miSession2 = request.getSession(true);
 
-        List<Eleccion> eleccionList = control.getELeccion();
         List<Usuario> listaUsuarios = control.getUsuarios();
         boolean usuarioEncontrado = false;
 
@@ -38,7 +35,7 @@ public class SvVerificar extends HttpServlet {
                     // Usuario encontrado
                     session.setAttribute("usuario", usuario);
                     misession1.setAttribute("ListaUsuarios", listaUsuarios);
-                    miSession2.setAttribute("listaEleccion", eleccionList);
+
                     usuarioEncontrado = true;
                     break;
                 }

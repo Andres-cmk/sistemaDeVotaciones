@@ -29,7 +29,6 @@ public class Candidato{
     @Temporal(TemporalType.DATE)
     Date can_fechaDeRegistro;
 
-
     @OneToMany(mappedBy = "candidato", fetch = FetchType.LAZY)
     List<Voto> voto;
 
