@@ -51,3 +51,17 @@
     background-color: #14213d;
 }
 
+#tabla-candidatos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#tabla-candidatos th, #tabla-candidatos td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+#tabla-candidatos th {
+    background-color: #f4f4f4;
+}
