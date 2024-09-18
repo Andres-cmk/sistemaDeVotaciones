@@ -24,7 +24,7 @@ public class Usuario{
     String usu_password;
     int usu_NumeroDocumento;
     String usu_rol;
-   // private String key;
+    int usu_ele_id;
 
 
     /*
@@ -43,7 +43,7 @@ public class Usuario{
         this.usu_password = usu_password;
         this.usu_NumeroDocumento = usu_NumeroDocumento;
         this.usu_rol = usu_rol;
-        //this.key = key;
+
     }
 
     public Usuario(Voto usu_vot_id){

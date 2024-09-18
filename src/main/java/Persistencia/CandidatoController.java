@@ -37,6 +37,16 @@ public class CandidatoController{
         return emf.createEntityManager();
     }
 
+    public Candidato findCandidato(int id){
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Candidato.class, id);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public void createCandidato(Candidato candidato){
         try (EntityManager em = getEntityManager()) {
             em.getTransaction().begin();

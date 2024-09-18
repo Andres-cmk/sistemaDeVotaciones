@@ -25,6 +25,7 @@ public class Candidato{
 
     String can_nombre;
     String can_rol;
+    int cad_ele_id;
 
     @Temporal(TemporalType.DATE)
     Date can_fechaDeRegistro;

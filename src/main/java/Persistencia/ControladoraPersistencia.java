@@ -16,7 +16,9 @@ public class ControladoraPersistencia {
 
     // aqui van los metodos para cada accion
     // Usuario
-
+    public void editarUsuario(Usuario usuarioCorrunt) {
+        usuariojpa.edit(usuarioCorrunt);
+    }
     public void crearUsuario(Usuario usuario) {
        usuariojpa.create(usuario);
     }
@@ -54,4 +56,14 @@ public class ControladoraPersistencia {
     public void createCandit(Candidato candidato) {
         candidatoController.createCandidato(candidato);
     }
+
+    public List<Candidato> traerCandidatos() {
+        return candidatoController.findCandidatoEntities();
+    }
+
+    public Candidato finCandidato(int id) {
+        return candidatoController.findCandidato(id);
+    }
+
+
 }

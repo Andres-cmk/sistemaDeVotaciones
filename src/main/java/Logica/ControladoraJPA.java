@@ -11,6 +11,10 @@ public class ControladoraJPA{
         persistencia.crearUsuario(usuario);
     }
 
+    public void editUsuario(Usuario usuarioCorrunt) {
+        persistencia.editarUsuario(usuarioCorrunt);
+    }
+
     public void eliminarUsuario(int id){
         persistencia.eliminarUsuario(id);
     }
@@ -40,4 +44,14 @@ public class ControladoraJPA{
     public void crearCandidato(Candidato candidato) {
         persistencia.createCandit(candidato);
     }
+
+    public List<Candidato> getCandidatos() {
+        return persistencia.traerCandidatos();
+    }
+
+    public Candidato getCandidato(int id){
+        return persistencia.finCandidato(id);
+    }
+
+
 }

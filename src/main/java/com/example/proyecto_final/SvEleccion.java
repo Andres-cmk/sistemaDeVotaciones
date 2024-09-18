@@ -2,6 +2,7 @@ package com.example.proyecto_final;
 
 import Logica.ControladoraJPA;
 import Logica.Eleccion;
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -39,8 +40,14 @@ public class SvEleccion extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<Eleccion> listaEleccions = controlPersistencia.getELeccion();
+        Gson json = new Gson();
+        String jsonElecciones = json.toJson(listaEleccions);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.getWriter().write(jsonElecciones);
     }
 }

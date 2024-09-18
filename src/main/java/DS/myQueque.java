@@ -15,6 +15,11 @@ public class myQueque{
         this.size = 0;
     }
 
+    public myQueque(){
+        this(10);
+    }
+
+
     public boolean isEmpty() {return (this.size == 0);}
 
     public int size() {return this.size;}
@@ -43,7 +48,6 @@ public class myQueque{
 
     public StringBuilder getList(){
         StringBuilder sb = new StringBuilder();
-        sb.reverse();
         if(this.isEmpty()) return sb.append("[]");
         sb.append("[");
         for (int i = 0; i < this.size; i++) {

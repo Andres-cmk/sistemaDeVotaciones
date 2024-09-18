@@ -1,5 +1,7 @@
 package DS;
 
+
+
 import java.util.Objects;
 
 public class HashMap<K,V> implements Map<K,V> {
@@ -15,8 +17,25 @@ public class HashMap<K,V> implements Map<K,V> {
         this.size = 0;
     }
 
+    @Override
+    public void rehashing (){
+        if ((this.size) >= (capacity * 0.9)) {
+            this.size = 0; // se inicia en 0 para evitar errores en el size cuando la longitu crece.
+            int newCapacity = capacity * 2;
+            HashNode<K, V>[] temp = table;
+            table = new HashNode[newCapacity];
+            for (HashNode<K, V> kvHashNode : temp) {
+                HashNode<K, V> chain = kvHashNode;
+                while (chain != null) {
+                    this.put(chain.getKey(), chain.getValue());
+                    chain = chain.getNext();
+                }
+            }
+        }
+    }
+
     public HashMap(){
-        this(1000);
+        this(10); // capacity inicial.
     }
 
     @Override
@@ -38,6 +57,7 @@ public class HashMap<K,V> implements Map<K,V> {
         nuevo.setNext(head);
         this.table[index] = nuevo;
         size++;
+        rehashing();
     }
 
     private int index(int hash) {
@@ -59,18 +79,48 @@ public class HashMap<K,V> implements Map<K,V> {
 
     @Override
     public V remove(K key) {
-        return null;
+        int index = this.index(this.hashCode(key));
+        HashNode<K, V> chain = this.table[index];
+        HashNode<K, V> head = this.table[index];
+        HashNode<K, V> prev = null;
+        while (chain != null) {
+            if(chain.getKey().equals(key)) {
+                break;
+            }
+            prev = chain;
+            chain = chain.getNext();
+        }
+        V value;
+        if(chain == null) //We don't find the value in the table
+            return null;
+        else if(prev != null) { // We delete in the middle
+            value = chain.getValue();
+            prev.setNext(chain.getNext());
+        } else { // We delete the head
+            value = chain.getValue();
+            this.table[index] = head.getNext();
+        }
+        size--;
+        return value;
     }
 
     @Override
-    public int len() {
-        return this.size;
-    }
+    public int len() {return this.size;}
 
     @Override
     public boolean hasKey(K key) {
+        int index = this.index(this.hashCode(key));
+        HashNode<K, V> chain = this.table[index];
+        while (chain != null){
+            if(chain.getKey().equals(key)) return true;
+            chain = chain.getNext();
+        }
         return false;
     }
+
+    @Override
+    public boolean isEmpty() {return table.length == 0;}
+
 
     // regresa el hascode de la llave para luego ser almacenado en un indice de la lista.
     public int hashCode(K key){
@@ -90,6 +140,7 @@ public class HashMap<K,V> implements Map<K,V> {
             }
         }
     }
+
 
 
 }

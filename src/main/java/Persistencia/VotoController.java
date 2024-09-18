@@ -21,9 +21,7 @@ public class VotoController{
         this.emf = emf;
     }
 
-    public EntityManager getEntityManager(){
-        return emf.createEntityManager();
-    }
+    public EntityManager getEntityManager(){return emf.createEntityManager();}
 
     public void createVoto(Voto voto){
         try(EntityManager em = getEntityManager()) {

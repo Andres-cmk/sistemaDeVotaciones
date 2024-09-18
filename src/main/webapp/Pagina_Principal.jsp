@@ -2,6 +2,9 @@
 <%@ page import="Logica.Usuario" %>
 <%@ page import="Logica.Eleccion" %>
 <%@ page import="Logica.ControladoraJPA" %>
+<%@ page import="Logica.Candidato" %>
+<%@ page import="DS.HashMap" %>
+<%@ page import="java.util.stream.Collectors" %>
 <%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
@@ -28,9 +31,26 @@
         response.sendRedirect("loginError.jsp");
         return;
     }
+
     ControladoraJPA control = new ControladoraJPA();
+    List<Usuario> listaUSuarios = (List<Usuario>) request.getSession().getAttribute("ListaUsuarios");
+    List<Candidato> listaCandidatos = control.getCandidatos();
+    List<Candidato> listaFinalCandidatos = null;
+
+    if(usuario.getUsu_ele_id() != 0){
+        listaFinalCandidatos = listaCandidatos.stream().filter(x -> x.getCad_ele_id() == usuario.getUsu_ele_id()).collect(Collectors.toList());
+    }
+
 %>
+
 <body>
+
+<%
+    boolean bandera = false;
+    if (usuario.getUsu_rol().equals("administrador")){
+        bandera = true;
+    }
+%>
 
 <!-- Barra de Navegación -->
 <header>
@@ -89,8 +109,8 @@
         </div>
     </div>
 
-    <!---Script para el diagrama-->
-    <script src="javaScript/diagrama.js"></script>
+
+
 
     <!----------------------------------------------------------------------------------------------------------------------------------->
 
@@ -100,12 +120,7 @@
 
 
         <table>
-
-            <%
-                List<Usuario> listaUSuarios = (List<Usuario>) request.getSession().getAttribute("ListaUsuarios");
-                 usuario = (Usuario) request.getSession().getAttribute("usuario");
-                if (usuario.getUsu_rol().equals("administrador")){
-            %>
+            <%if (bandera){%>
 
             <thead>
             <tr>
@@ -116,10 +131,11 @@
                 <th>Rol</th>
             </tr>
             </thead>
+            <tbody>
             <%
                 for (Usuario usu: listaUSuarios){
             %>
-                <tbody>
+
                 <tr>
                     <td><%= usu.getUsu_NumeroDocumento()%></td>
                     <td><%= usu.getUsu_nombre()%></td>
@@ -127,9 +143,10 @@
                     <td><%= usu.getUsu_correo()%></td>
                     <td><%= usu.getUsu_rol()%></td>
                 </tr>
-                </tbody>
+
 
             <%}%>
+            </tbody>
             <%} else {%>
             <thead>
             <tr>
@@ -140,22 +157,24 @@
                 <th>Rol</th>
             </tr>
             </thead>
+            <tbody>
                 <%
                     for (Usuario usu: listaUSuarios){
-                        if(!usu.getUsu_rol().equals("administrador")){
+                        if(!bandera && !(usu.getUsu_rol().equals("administrador"))){
                 %>
-            <tbody>
+
             <tr>
                 <td><%= usu.getUsu_nombre()%></td>
                 <td><%= usu.getUsu_apellido()%></td>
                 <td><%= usu.getUsu_correo()%></td>
                 <td><%= usu.getUsu_rol()%></td>
             </tr>
-            </tbody>
+
 
             <%}%>
             <%}%>
             <%}%>
+            </tbody>
         </table>
     </div>
 
@@ -176,11 +195,11 @@
 
         <!--Tabla de Elecciones-->
 
-        <table>
+        <table id="table_elecciones">
 
             <%
                 List<Eleccion> eleccionList = control.getELeccion();
-                if(usuario.getUsu_rol().equals("administrador")){
+                if(bandera){
             %>
 
             <thead>
@@ -239,10 +258,8 @@
                 <td><%=ele.getEle_fechaFinal()%></td>
                 <td><%=ele.getEle_nombre()%></td>
                 <td>
-                    <div class="Pagination" style="display: flex; gap: 10px">
-                        <form id="inscribirPerson">
-                            <button type="reset">Incribirse  <i class="fa-solid fa-check"></i> </button>
-                        </form>
+                    <div class="Pagination" style="display: flex;">
+                        <button onclick="window.location.href='SvInscribir?usu_id=<%=usuario.getUsu_id()%>&ele_id=<%=ele.getEle_id()%>'">Incribirse  <i class="fa-solid fa-check"></i> </button>
                     </div>
                 </td>
             </tr>
@@ -296,7 +313,7 @@
     <div class="modal" id="myModal" style="display: none">
         <span class="close-btn" id="closeModalBtn">&times;</span>
         <h2>Formulario de Registro</h2>
-        <form action="SvEleccion" method="POST" id="formuEleccion" autocomplete="off" >
+        <form action="SvEleccion" method="POST" id="formuEleccion" autocomplete="off">
 
             <label for="estado">Estado:</label>
             <input type="text" id="estado" name="estadoEleccion" required>
@@ -322,6 +339,65 @@
         <div class="table-options">
             <button id="openModalCandidato" onclick="viewModal()">Agregar Candidato   <i class="fa-solid fa-plus"></i></button>
         </div>
+
+        <table id="tabla-candidatos">
+            <thead>
+            <tr>
+                <th>id Candidato</th>
+                <th>Fecha de Registro</th>
+                <th>Nombre del Candidato</th>
+                <th>Rol del Candidato</th>
+            </tr>
+            </thead>
+            <tbody>
+                <%
+                    if(!bandera){
+                        if(listaFinalCandidatos != null){
+                        for (Candidato candidato: listaFinalCandidatos){%>
+
+                            <tr>
+                                <td><%=candidato.getCan_id()%></td>
+                                <td><%=candidato.getCan_fechaDeRegistro()%></td>
+                                <td><%=candidato.getCan_nombre()%></td>
+                                <td><%=candidato.getCan_rol()%></td>
+                                <td>
+                                    <div class="Pagination" style="display: flex">
+                                        <form action="SvVotar" method="POST" id="votar">
+                                            <label for="candidato">
+                                                <input type="hidden" id="candidato" value="<%=candidato.getCan_id()%>" name="candidato">
+                                         </label>
+                                            <button type="submit">Votar   <i class="fa-solid fa-check-to-slot"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        <%}
+                        } else {%>
+                        <tr>
+                            <td colspan="4">No hay Candidatos por mostrar</td>
+
+                            </tr>
+                        <%}
+                    } else {
+                        if(listaCandidatos == null){%>
+                            <tr>
+                                <td colspan="4">No hay Candidatos por mostrar</td>
+                            </tr>
+
+                        <%} else {
+                            for (Candidato candidato: listaCandidatos){%>
+                                <tr>
+                                    <td><%=candidato.getCan_id()%></td>
+                                    <td><%=candidato.getCan_fechaDeRegistro()%></td>
+                                    <td><%=candidato.getCan_nombre()%></td>
+                                    <td><%=candidato.getCan_rol()%></td>
+                                </tr>
+                    <%
+                             }
+                        }
+                    }%>
+            </tbody>
+        </table>
     </div>
 
 
@@ -364,15 +440,18 @@
 <script src="javaScript/modal.js"></script>
 <script src="javaScript/ediatModal.js"></script>
 <script src="javaScript/cargarDatos.js"></script>
-<script src="javaScript/script.js"></script>
 <script src="javaScript/agregarCanModal.js"></script>
+<script src="javaScript/diagrama.js"></script>
+<script src="javaScript/script.js"></script>
+
 <script>
-    <%if (!usuario.getUsu_rol().equals("administrador")){%>
+    <%if(!bandera){%>
     document.getElementById("openModalBtn").style.display = "none";
     document.getElementById("editar").style.display = "none";
     document.getElementById("openModalCandidato").style.display = "none";
     <%}%>
 </script>
+
 </body>
 
 <footer id="footer">

@@ -1,5 +1,3 @@
-import {Chart} from "chart.js";
-
 const targets = document.querySelectorAll('[data-target]')
 const content = document.querySelectorAll('[data-content]')
 
