@@ -34,6 +34,19 @@ public class HashMap<K,V> implements Map<K,V> {
         }
     }
 
+    public K getKeyByValue(V value) {
+        for (int i = 0; i < table.length; i++) {
+            HashNode<K, V> node = table[i];
+            while (node != null) {
+                if (node.getValue().equals(value)) {
+                    return node.getKey(); // Retorna la llave correspondiente al valor
+                }
+                node = node.getNext(); // Avanza al siguiente nodo
+            }
+        }
+        return null; // Retorna null si no se encuentra el valor
+    }
+
 
     public HashMap(){
         this(10); // capacity inicial.

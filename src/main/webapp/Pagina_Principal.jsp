@@ -3,7 +3,6 @@
 <%@ page import="Logica.Eleccion" %>
 <%@ page import="Logica.ControladoraJPA" %>
 <%@ page import="Logica.Candidato" %>
-<%@ page import="DS.HashMap" %>
 <%@ page import="java.util.stream.Collectors" %>
 <%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" %>
 
@@ -74,7 +73,7 @@
 
 <!-- Contenedor Principal -->
 <!-------------------------------------------------------------------------------------------------------------------------------------------->
-<div class="container">
+    <div class="container">
     <div data-content id="Principal">
         <div class="promo"><h3>Bienvenido a nuestro sistema de votaciones</h3></div>
     </div>
@@ -86,18 +85,18 @@
         <!-- Sección de Selección de Elección -->
         <section class="seleccion-eleccion">
             <h2>Seleccione una elección</h2>
-            <form id="form-eleccion">
+            <form id="form-eleccion" action="SvResultados" method="GET">
                 <label for="elecciones">Elecciones:</label>
-                <select id="elecciones">
-                    <option value="">-- Seleccione --</option>
+                <select id="elecciones" class="boton" onchange="this.form['valor'].value = this.value">
+                    <option value="-1">-- Seleccione --</option>
                     <%
                         List<Eleccion> listaEleccion = control.getELeccion();
                         for (Eleccion ele: listaEleccion){
                     %>
-                        <option value="<%=ele.getEle_nombre()%>"><%=ele.getEle_nombre()%></option>
+                        <option value="<%=ele.getEle_id()%>"><%=ele.getEle_nombre()%></option>
                     <%}%>
-
                 </select>
+                <label for="name_eleccion"><input type="hidden" name="valor" id="name_eleccion"></label>
                 <button type="submit">Buscar Resultados</button>
             </form>
         </section>
@@ -434,6 +433,20 @@
 
     <div data-content id="reportes">
         <h1>Reportes</h1>
+        <h2>Seleccione una elección</h2>
+        <form id="form-ganador" action="SvGetGanador" method="GET">
+            <label for="eleccionesGanador">Elecciones:</label>
+            <select id="eleccionesGanador" class="boton" onchange="this.form['id'].value = this.value">
+                <option value="-1">-- Seleccione --</option>
+                <%
+                    for (Eleccion ele: listaEleccion){
+                %>
+                <option value="<%=ele.getEle_id()%>"><%=ele.getEle_nombre()%></option>
+                <%}%>
+            </select>
+            <label for="name_eleccion"><input type="hidden" name="id" id="name_eleccion_ganador"></label>
+            <button type="submit">Revisa el Ganador!   <i class="fa-solid fa-trophy"></i></button>
+        </form>
     </div>
 
     <!---------------------------------------------------------------------------------------------------------------------------------------->
@@ -442,9 +455,9 @@
 <script src="javaScript/ediatModal.js"></script>
 <script src="javaScript/cargarDatos.js"></script>
 <script src="javaScript/agregarCanModal.js"></script>
-<script src="javaScript/diagrama.js"></script>
 <script src="javaScript/script.js"></script>
 <script src="javaScript/voto.js"></script>
+<script src="javaScript/diagrama.js?v=1.0"></script>
 
 <script>
     <%if(!bandera){%>

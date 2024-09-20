@@ -7,7 +7,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,7 +20,7 @@ public class SvCandidatos extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
 
-        HttpSession session = request.getSession(true);
+
         String fechaRegistro = request.getParameter("fechaCandidato");
         String nombreCandidato = request.getParameter("nombreCandidato");
         String rolCandidato = request.getParameter("rolCandidato");

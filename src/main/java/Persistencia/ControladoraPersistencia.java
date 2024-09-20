@@ -1,5 +1,6 @@
 package Persistencia;
 
+import DS.HashMap;
 import Logica.Candidato;
 import Logica.Eleccion;
 import Logica.Usuario;
@@ -78,5 +79,13 @@ public class ControladoraPersistencia {
 
     public Usuario findUsuario(int idUsuario) {
         return usuariojpa.findUsuario(idUsuario);
+    }
+
+    public List<String> getCandidatosPorEleccion(int idEleccion) {
+        return candidatoController.obtenerCandidatosPorEleccion(idEleccion);
+    }
+
+    public HashMap<String, Integer> getCandidatosVotos() {
+        return eleccionController.canEleVot();
     }
 }

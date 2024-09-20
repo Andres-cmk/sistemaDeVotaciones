@@ -1,7 +1,7 @@
 package Persistencia;
 
-
 import java.util.List;
+import DS.HashMap;
 import Logica.Eleccion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -11,14 +11,26 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
-import javax.xml.namespace.QName;
 
-/*
- *la interfaz Serializable sirve para cuando un objeto sea mandado por
- * una red se combierta en una cadena de bytes.
- * */
 
 public class EleccionController{
+
+    public HashMap<String, Integer> canEleVot(){
+        EntityManager em = getEntityManager();
+        String sql = "SELECT can_nombre, COUNT(*) FROM voto JOIN candidato ON (can_id = candidato_vot_id) GROUP BY can_nombre";
+        Query query = em.createNativeQuery(sql);
+
+        HashMap<String, Integer> map = new HashMap<>();
+        String nombreCandidato;
+        int votos;
+        List<Object []> lista = query.getResultList();
+        for (Object [] i: lista){
+            nombreCandidato = i[0].toString();
+            votos = ((Number) i[1]).intValue();
+            map.put(nombreCandidato,votos);
+        }
+        return map;
+    }
 
     private final EntityManagerFactory emf;
 

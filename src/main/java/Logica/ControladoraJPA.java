@@ -1,5 +1,6 @@
 package Logica;
 
+import DS.HashMap;
 import Persistencia.ControladoraPersistencia;
 import java.util.List;
 
@@ -64,5 +65,13 @@ public class ControladoraJPA{
 
     public Usuario getUsuario(int idUsuario) {
         return persistencia.findUsuario(idUsuario);
+    }
+
+    public List<String> getCandidatosEleccion(int idEleccion) {
+        return persistencia.getCandidatosPorEleccion(idEleccion);
+    }
+
+    public HashMap<String, Integer> consultaCandidato() {
+        return persistencia.getCandidatosVotos();
     }
 }

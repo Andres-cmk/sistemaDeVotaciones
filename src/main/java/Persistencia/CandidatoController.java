@@ -14,6 +14,14 @@ public class CandidatoController{
 
     private final EntityManagerFactory emf;
 
+    public List<String> obtenerCandidatosPorEleccion(int cad_ele_id){
+        EntityManager em = getEntityManager();
+        String query = "SELECT can_nombre FROM candidato WHERE cad_ele_id = ?";
+        Query consulta = em.createNativeQuery(query);
+        consulta.setParameter(1,cad_ele_id);
+
+        return consulta.getResultList();
+    }
 
     public int obtenerCantidadVotos(long id){
         EntityManager em = getEntityManager();
