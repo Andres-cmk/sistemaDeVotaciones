@@ -8,6 +8,7 @@
   },
   "private": true,
   "dependencies": {
+    "nodemailer": "^6.9.15",
     "sweetalert2": "^11.11.1"
   }
 }

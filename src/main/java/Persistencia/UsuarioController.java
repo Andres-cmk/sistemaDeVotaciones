@@ -100,18 +100,32 @@ public class UsuarioController {
     }
 
     private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
-        try (EntityManager em = getEntityManager()) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
             CriteriaBuilder cb = em.getCriteriaBuilder();
             CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);
             Root<Usuario> rootEntry = cq.from(Usuario.class);
             CriteriaQuery<Usuario> allQuery = cq.select(rootEntry);
+            List<Usuario> result;
             if (!all) {
-                return em.createQuery(allQuery)
+                result = em.createQuery(allQuery)
                         .setMaxResults(maxResults)
                         .setFirstResult(firstResult)
                         .getResultList();
             } else {
-                return em.createQuery(allQuery).getResultList();
+                result = em.createQuery(allQuery).getResultList();
+            }
+            em.getTransaction().commit(); // Confirmar transacción
+            return result;
+        } catch (Exception ex) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback(); // En caso de error, hacer rollback
+            }
+            throw ex; // Re-lanzar la excepción
+        } finally {
+            if (em != null) {
+                em.close(); // Cerrar el EntityManager después de la operación
             }
         }
     }

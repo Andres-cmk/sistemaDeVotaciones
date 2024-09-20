@@ -3,6 +3,8 @@ package Persistencia;
 import Logica.Candidato;
 import Logica.Eleccion;
 import Logica.Usuario;
+import Logica.Voto;
+
 import java.util.List;
 
 public class ControladoraPersistencia {
@@ -66,4 +68,15 @@ public class ControladoraPersistencia {
     }
 
 
+    public void createVot(Voto votoUsuario) {
+        votoController.createVoto(votoUsuario);
+    }
+
+    public List<Voto> getVotos() {
+        return votoController.findVotoEntities();
+    }
+
+    public Usuario findUsuario(int idUsuario) {
+        return usuariojpa.findUsuario(idUsuario);
+    }
 }

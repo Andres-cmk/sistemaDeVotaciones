@@ -3,6 +3,7 @@ package com.example.proyecto_final;
 import java.io.*;
 import Logica.ControladoraJPA;
 import Logica.Usuario;
+import com.google.gson.JsonObject;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class SvUsuarios extends HttpServlet {
 
 
-     final ControladoraJPA control = new ControladoraJPA();
+    private final ControladoraJPA control = new ControladoraJPA();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) {}
 
@@ -19,6 +20,8 @@ public class SvUsuarios extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         try{
+
+            JsonObject json = new JsonObject();
             String nombre = request.getParameter("nombre");
             String apellido = request.getParameter("apellido");
             int NumeroDocumento = Integer.parseInt(request.getParameter("documento"));
@@ -44,13 +47,18 @@ public class SvUsuarios extends HttpServlet {
             if(usuarioRegistrado){
                 Usuario usuario = new Usuario(nombre,apellido, email, password, NumeroDocumento, rolUsuario);
                 control.crearUsuario(usuario);
-                response.getWriter().write("{\"status\":\"success\"}");
+                json.addProperty("status","success");
+                response.getWriter().write(json.toString());
             }else {
-                response.getWriter().write("{\"status\":\"valueRepet\"}");
+                json.addProperty("status","valueRepet");
+                response.getWriter().write(json.toString());
             }
 
         }catch (Exception e){
-            response.getWriter().write("{\"status\":\"error\", \"message\":\"" + e.getMessage() + "\"}");
+            JsonObject json = new JsonObject();
+            json.addProperty("status","error");
+            json.addProperty("message",e.getMessage());
+            response.getWriter().write(json.toString());
 
         }
     }

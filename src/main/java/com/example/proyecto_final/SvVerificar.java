@@ -1,8 +1,8 @@
 package com.example.proyecto_final;
 
 import Logica.ControladoraJPA;
-import Logica.Eleccion;
 import Logica.Usuario;
+import com.google.gson.JsonObject;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
@@ -11,11 +11,12 @@ import java.util.List;
 @WebServlet(name = "SvVerificar", value = "/SvVerificar")
 public class SvVerificar extends HttpServlet {
 
-    private final ControladoraJPA control = new ControladoraJPA();
+    private ControladoraJPA control = new ControladoraJPA();
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws  IOException {
 
+        JsonObject json = new JsonObject();
         int numeroDocumento = Integer.parseInt(request.getParameter("documet"));
         String email = request.getParameter("correo");
         String password = request.getParameter("password");
@@ -46,10 +47,12 @@ public class SvVerificar extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         if (usuarioEncontrado) {
             // Usuario válido
-            response.getWriter().write("{\"status\":\"success\"}");
+            json.addProperty("status","success");
+            response.getWriter().write(json.toString());
         } else {
             // Usuario no válido
-            response.getWriter().write("{\"status\":\"error\"}");
+            json.addProperty("status","error");
+            response.getWriter().write(json.toString());
         }
     }
 }

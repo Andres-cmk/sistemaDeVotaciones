@@ -54,4 +54,15 @@ public class ControladoraJPA{
     }
 
 
+    public void createVoto(Voto votoUsuario) {
+        persistencia.createVot(votoUsuario);
+    }
+
+    public List<Voto> getVotos() {
+        return persistencia.getVotos();
+    }
+
+    public Usuario getUsuario(int idUsuario) {
+        return persistencia.findUsuario(idUsuario);
+    }
 }

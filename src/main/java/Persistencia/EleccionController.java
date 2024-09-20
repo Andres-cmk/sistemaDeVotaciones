@@ -6,9 +6,12 @@ import Logica.Eleccion;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Query;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+
+import javax.xml.namespace.QName;
 
 /*
  *la interfaz Serializable sirve para cuando un objeto sea mandado por
@@ -25,6 +28,16 @@ public class EleccionController{
 
     public EleccionController(EntityManagerFactory emf){
         this.emf = emf;
+    }
+
+    public int obtenerVotos(long idEleccion) {
+        EntityManager em = getEntityManager();
+        String sql = "SELECT COUNT(*) FROM voto WHERE eleccion_vot_id = ?";
+        Query consulta = em.createNativeQuery(sql);
+        consulta.setParameter(1,idEleccion);
+
+        Number count = (Number) consulta.getSingleResult();
+        return count.intValue();
     }
 
     public EntityManager getEntityManager(){

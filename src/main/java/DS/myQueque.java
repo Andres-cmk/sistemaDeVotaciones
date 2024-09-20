@@ -1,11 +1,14 @@
 package DS;
 
 import Logica.Voto;
-
+import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
-// una cola para procesamiento de votos
+import java.util.Iterator;
+import java.util.function.Consumer;
 
-public class myQueque{
+// una cola para procesamiento de votos
+public class myQueque implements Iterable<Voto>{
+
 
     private Voto [] list;
     private int size;
@@ -52,11 +55,35 @@ public class myQueque{
         sb.append("[");
         for (int i = 0; i < this.size; i++) {
             if(i == this.size-1){
-                sb.append(list[i]).append("]");
+                sb.append(list[i].getVot_fechavDeVoto()).append("]");
                 break;
             }
-            sb.append(list[i]).append(",");
+            sb.append(list[i].getVot_fechavDeVoto()).append(",");
         }
         return sb;
+    }
+
+    @NotNull
+    @Override
+    public Iterator<Voto> iterator() {
+        int size = this.size;
+        Voto [] list = this.list;
+        return new Iterator<Voto>() {
+            int i = 0;
+            @Override
+            public boolean hasNext() {
+                return i < size ;
+            }
+
+            @Override
+            public Voto next() {
+                return list[i++];
+            }
+        };
+    }
+
+    @Override
+    public void forEach(Consumer<? super Voto> action) {
+        Iterable.super.forEach(action);
     }
 }

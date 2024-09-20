@@ -19,17 +19,12 @@ public class SvInscribir extends HttpServlet {
     ControladoraJPA control = new ControladoraJPA();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int usu_id = Integer.parseInt(request.getParameter("usu_id"));
+
         int ele_id = Integer.parseInt(request.getParameter("ele_id"));
-        HttpSession session = request.getSession(true);
-        Usuario usuarioCurrent = (Usuario) request.getSession().getAttribute("usuario");
+        HttpSession session = request.getSession();
+        Usuario usuarioCurrent = (Usuario) session.getAttribute("usuario");
         usuarioCurrent.setUsu_ele_id(ele_id);
         control.editUsuario(usuarioCurrent);
-
-        session.setAttribute("usu_id", usu_id);
-        session.setAttribute("ele_id", ele_id);
-
-
         response.sendRedirect("Pagina_Principal.jsp");
     }
 }

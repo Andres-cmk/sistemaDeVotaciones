@@ -22,6 +22,7 @@
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <link rel="shortcut icon" href="imagenes/server-solid.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <!--Validacion-->
@@ -60,12 +61,12 @@
     </div>
     <nav>
         <ul>
-            <li><a data-target="#resultados">Resultados</a></li>
+            <li><a data-target="#resultados" id="result">Resultados</a></li>
             <li><a data-target="#usuarios">Usuarios</a></li>
             <li><a data-target="#eleccion">Elecciones</a></li>
             <li><a data-target="#candidatos">Candidatos</a></li>
-            <li><a data-target="#votantes">Votantes</a></li>
-            <li><a data-target="#reportes">Reportes</a></li>
+            <li><a data-target="#votantes" id = "vot">Votantes</a></li>
+            <li><a data-target="#reportes" id="report">Reportes</a></li>
             <li><a href="SvCerrarSesion?param=salir">Salir</a></li>
         </ul>
     </nav>
@@ -259,7 +260,7 @@
                 <td><%=ele.getEle_nombre()%></td>
                 <td>
                     <div class="Pagination" style="display: flex;">
-                        <button onclick="window.location.href='SvInscribir?usu_id=<%=usuario.getUsu_id()%>&ele_id=<%=ele.getEle_id()%>'">Incribirse  <i class="fa-solid fa-check"></i> </button>
+                        <button onclick="window.location.href='SvInscribir?ele_id=<%=ele.getEle_id()%>'">Incribirse  <i class="fa-solid fa-check"></i> </button>
                     </div>
                 </td>
             </tr>
@@ -362,7 +363,7 @@
                                 <td><%=candidato.getCan_rol()%></td>
                                 <td>
                                     <div class="Pagination" style="display: flex">
-                                        <form action="SvVotar" method="POST" id="votar">
+                                        <form action="SvVotar" method="POST" id="votar" class="vote">
                                             <label for="candidato">
                                                 <input type="hidden" id="candidato" value="<%=candidato.getCan_id()%>" name="candidato">
                                          </label>
@@ -443,12 +444,16 @@
 <script src="javaScript/agregarCanModal.js"></script>
 <script src="javaScript/diagrama.js"></script>
 <script src="javaScript/script.js"></script>
+<script src="javaScript/voto.js"></script>
 
 <script>
     <%if(!bandera){%>
     document.getElementById("openModalBtn").style.display = "none";
     document.getElementById("editar").style.display = "none";
     document.getElementById("openModalCandidato").style.display = "none";
+    document.getElementById("result").style.display = "none";
+    document.getElementById("vot").style.display = "none";
+    document.getElementById("report").style.display = "none";
     <%}%>
 </script>
 
