@@ -64,7 +64,6 @@
             <li><a data-target="#usuarios">Usuarios</a></li>
             <li><a data-target="#eleccion">Elecciones</a></li>
             <li><a data-target="#candidatos">Candidatos</a></li>
-            <li><a data-target="#votantes" id = "vot">Votantes</a></li>
             <li><a data-target="#reportes" id="report">Reportes</a></li>
             <li><a href="SvCerrarSesion?param=salir">Salir</a></li>
         </ul>
@@ -102,7 +101,7 @@
         </section>
 
         <!-- Sección de Resultados -->
-        <div class="resultados">
+        <div class="resultados" id="pieContainer">
             <h2>Resultados</h2>
                 <!-- Resultados dinámicos -->
             <canvas id="pieChart"></canvas>
@@ -268,7 +267,7 @@
             <%}%>
         </table>
 
-        <!--Ventana Modal para editar Usuario-->
+        <!--Ventana Modal para editar Eleccion-->
         <div class="modal-overlay" id="modalEleccion"></div>
 
 
@@ -427,11 +426,7 @@
         </form>
     </div>
 
-    <div data-content id="votantes">
-        <h1>Votatntes</h1>
-    </div>
-
-    <div data-content id="reportes">
+    <div data-content id="reportes" >
         <h1>Reportes</h1>
         <h2>Seleccione una elección</h2>
         <form id="form-ganador" action="SvGetGanador" method="GET">
@@ -447,7 +442,25 @@
             <label for="name_eleccion"><input type="hidden" name="id" id="name_eleccion_ganador"></label>
             <button type="submit">Revisa el Ganador!   <i class="fa-solid fa-trophy"></i></button>
         </form>
+
+        <div id="card" style="
+                width: 190px;
+                height: 254px;
+                border-radius: 50px;
+                background: #e0e0e0;
+                box-shadow: 20px 20px 60px #bebebe,
+               -20px -20px 60px #ffffff;
+               display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+"></div>
+
     </div>
+
+
 
     <!---------------------------------------------------------------------------------------------------------------------------------------->
 </div>
@@ -458,6 +471,7 @@
 <script src="javaScript/script.js"></script>
 <script src="javaScript/voto.js"></script>
 <script src="javaScript/diagrama.js?v=1.0"></script>
+<script src="javaScript/setGanador.js"></script>
 
 <script>
     <%if(!bandera){%>

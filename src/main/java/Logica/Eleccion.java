@@ -1,5 +1,6 @@
 package Logica;
 
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,16 +20,21 @@ import java.util.List;
 public class Eleccion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private int ele_id;
 
+    @Expose
     private String ele_nombre;
 
+    @Expose
     @Temporal(TemporalType.DATE)
     private Date ele_fechaInicio;
 
+    @Expose
     @Temporal(TemporalType.DATE)
     private Date ele_fechaFinal;
 
+    @Expose
     private String ele_estado;
 
 

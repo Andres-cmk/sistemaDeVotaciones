@@ -71,7 +71,9 @@ public class ControladoraJPA{
         return persistencia.getCandidatosPorEleccion(idEleccion);
     }
 
-    public HashMap<String, Integer> consultaCandidato() {
-        return persistencia.getCandidatosVotos();
+    public HashMap<String, Integer> consultaCandidato(int id) {
+        return persistencia.getCandidatosVotos(id);
     }
+
+    public HashMap<String, Integer> consultaCandidato(){return persistencia.getCandidatosVotos();}
 }

@@ -85,6 +85,10 @@ public class ControladoraPersistencia {
         return candidatoController.obtenerCandidatosPorEleccion(idEleccion);
     }
 
+    public HashMap<String, Integer> getCandidatosVotos(int id_eleccion) {
+        return eleccionController.canEleVot(id_eleccion);
+    }
+
     public HashMap<String, Integer> getCandidatosVotos() {
         return eleccionController.canEleVot();
     }

@@ -15,9 +15,27 @@ import jakarta.persistence.criteria.Root;
 
 public class EleccionController{
 
+    public HashMap<String, Integer> canEleVot(int id){
+        EntityManager em = getEntityManager();
+        String sql = "SELECT can_nombre, COUNT(*) FROM voto JOIN candidato ON (can_id = candidato_vot_id) where cad_ele_id = ? group by can_nombre;";
+        Query query = em.createNativeQuery(sql);
+        query.setParameter(1, id);
+
+        HashMap<String, Integer> map = new HashMap<>();
+        String nombreCandidato;
+        int votos;
+        List<Object []> lista = query.getResultList();
+        for (Object [] i: lista){
+            nombreCandidato = i[0].toString();
+            votos = ((Number) i[1]).intValue();
+            map.put(nombreCandidato,votos);
+        }
+        return map;
+    }
+
     public HashMap<String, Integer> canEleVot(){
         EntityManager em = getEntityManager();
-        String sql = "SELECT can_nombre, COUNT(*) FROM voto JOIN candidato ON (can_id = candidato_vot_id) GROUP BY can_nombre";
+        String sql = "SELECT can_nombre, COUNT(*) FROM voto JOIN candidato ON (can_id = candidato_vot_id)  group by can_nombre;";
         Query query = em.createNativeQuery(sql);
 
         HashMap<String, Integer> map = new HashMap<>();
@@ -31,6 +49,7 @@ public class EleccionController{
         }
         return map;
     }
+
 
     private final EntityManagerFactory emf;
 

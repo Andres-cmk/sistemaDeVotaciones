@@ -3,6 +3,7 @@ package com.example.proyecto_final;
 import Logica.ControladoraJPA;
 import Logica.Eleccion;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class SvEditarEleccion extends HttpServlet {
 
         session.setAttribute("eleccionEdit", eleccion);
 
-        Gson json = new Gson();
+        Gson json = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
         String eleccionJson = json.toJson(eleccion);
 

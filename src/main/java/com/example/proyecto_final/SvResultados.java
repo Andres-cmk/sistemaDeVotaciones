@@ -2,8 +2,6 @@ package com.example.proyecto_final;
 
 import DS.HashMap;
 import Logica.ControladoraJPA;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
