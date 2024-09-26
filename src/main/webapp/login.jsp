@@ -8,7 +8,6 @@
     <script src="https://kit.fontawesome.com/8234d7916b.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="./javaScript/login.js"></script>
 </head>
 <body>
 <div class="principal">
@@ -53,6 +52,53 @@
     Swal.fire({
         title: "Bienvenido"
     });
+</script>
+
+<script>
+
+    $(document).ready(function() {
+        $('.login').on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'SvVerificar',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);  // Añadir esta línea para inspeccionar la respuesta en la consola
+                    if (response.status === 'error') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "Usuario invalido",
+                            timer: 3000
+                        });
+                    }else if(response.status === "already_logged_in"){
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ya votaste',
+                            text:'Ya no puedes ingresar'
+                        })
+                    }else if (response.status === 'success') {
+                        // Redirigir a la página principal
+                        window.location.href = 'Pagina_Principal.jsp';
+                    }else {
+                        console.log("Estado no reconocido: ", response.status);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Manejo de errores en la solicitud AJAX
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error en la solicitud',
+                        text: error,
+                        timer: 3000
+                    });
+                }
+            });
+        });
+    });
+
 </script>
 
 </body>

@@ -17,7 +17,7 @@ public class EleccionController{
 
     public HashMap<String, Integer> canEleVot(int id){
         EntityManager em = getEntityManager();
-        String sql = "SELECT can_nombre, COUNT(*) FROM voto JOIN candidato ON (can_id = candidato_vot_id) where cad_ele_id = ? group by can_nombre;";
+        String sql = "SELECT can_nombre, COUNT(*) FROM voto JOIN candidato ON (can_id = candidato_vot_id) where cad_ele_id = ? group by can_nombre";
         Query query = em.createNativeQuery(sql);
         query.setParameter(1, id);
 
